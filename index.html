@@ -14,8 +14,8 @@
             color: #333;
         }
         header {
-            background: #007BFF;
-            color: white;
+            background: #e6f7ff;
+            color: #003366;
             padding: 10px 20px;
             text-align: center;
             position: relative;
@@ -35,11 +35,26 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        section {
-            margin-bottom: 20px;
+        #announcement {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        #programmes-offered {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .program-box {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
         }
         h2 {
-            color: #007BFF;
+            color: #003366;
         }
         footer {
             text-align: center;
@@ -65,13 +80,22 @@
             <p>Skill Station Academy is a non-profit educational and skill training institution started by dedicated volunteers from IIT Madras. We are committed to empowering and nurturing young minds with high-quality and affordable education, providing them with industry-relevant skills to achieve their career goals.</p>
             <p>🚀 Join Skill Station, where we deliver cutting-edge education and skill training! Our goal is to prepare learners for the ever-evolving job market by offering scholarships of up to 100% for deserving students. Let’s build a brighter future together! 🌟</p>
         </section>
-        <section id="programs">
-            <h2>Our Programs</h2>
-            <p>Skill Station offers structured programs in software engineering, data science, and machine learning. These include live classes by industry experts, hands-on projects, tailored mentorship, and internship opportunities. Our curriculum is designed in collaboration with leading industry professionals, ensuring outcome-driven learning for all students.</p>
+        <section id="programmes-offered">
+            <h2>Programmes Offered</h2>
+            <div class="program-box">Introduction to Machine Learning and Data Science</div>
+            <div class="program-box">Crash Course on ChatGPT Prompts</div>
+            <div class="program-box">Fundamentals of Programming</div>
+            <div class="program-box">Application Development</div>
         </section>
         <section id="community">
             <h2>Join Our Community</h2>
             <p>Be part of a global hub for collaborative coding adventures! Work on open-source projects, innovate through our browser-based coding tools, and connect with learners worldwide. Let’s code, innovate, and make a difference together! 💻✨</p>
+            <p>Follow us on <a href="https://www.linkedin.com/company/skill-station-academy" target="_blank">LinkedIn</a>.</p>
+        </section>
+        <section id="contact-us">
+            <h2>Contact Us</h2>
+            <p>Email: <a href="mailto:skillstation.academy@gmail.com">skillstation.academy@gmail.com</a></p>
+            <p>Phone: 730 5959397</p>
         </section>
     </div>
     <footer>
