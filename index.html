@@ -42,7 +42,7 @@
         }
         #programmes-offered {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -52,9 +52,16 @@
             border-radius: 8px;
             text-align: center;
             border: 1px solid #ccc;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         h2 {
             color: #003366;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
         }
         footer {
             text-align: center;
@@ -82,10 +89,26 @@
         </section>
         <section id="programmes-offered">
             <h2>Programmes Offered</h2>
-            <div class="program-box">Introduction to Machine Learning and Data Science</div>
-            <div class="program-box">Crash Course on ChatGPT Prompts</div>
-            <div class="program-box">Fundamentals of Programming</div>
-            <div class="program-box">Application Development</div>
+            <div class="program-box">
+                <strong>Introduction to Machine Learning and Data Science</strong>
+                <p>Learn the basics of ML and data analysis.</p>
+            </div>
+            <div class="program-box">
+                <strong>Crash Course on ChatGPT Prompts</strong>
+                <p>Master prompt engineering for AI tools.</p>
+            </div>
+            <div class="program-box">
+                <strong>Fundamentals of Programming</strong>
+                <p>Build a strong foundation in coding.</p>
+            </div>
+            <div class="program-box">
+                <strong>Application Development</strong>
+                <p>Design and develop modern applications.</p>
+            </div>
+            <div class="program-box">
+                <strong>IITJEE Foundation</strong>
+                <p>Prepare for IITJEE with expert guidance.</p>
+            </div>
         </section>
         <section id="community">
             <h2>Join Our Community</h2>
