@@ -39,7 +39,7 @@
 2. **One-Time Payment:** Rs. 46,200 - **20% Waiver** = **Rs. 36,960**  
 
 ### **Note:**  
-- Each session will be **50% offline and 50% online**, depending on classroom and faculty availability.  
+- Session will be both **offline** and/or **online**, depending on classroom and faculty availability.  
 - Weekly **worksheets** and **exams** will be conducted to track progress.  
 - The schedule may be subject to minor adjustments based on holidays or other requirements.  
 - The dates mentioned are tentative; any changes in the class schedule will be communicated in advance via our WhatsApp group.  
