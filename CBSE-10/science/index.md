@@ -1,6 +1,3 @@
-Here is the science tuition fee and schedule formatted similarly to the math schedule:  
-
----
 
 # **SKILL STATION ACADEMY - CHENNAI**  
 ### skillstation.academy@gmail.com • 7305959397  
