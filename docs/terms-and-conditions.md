@@ -1,5 +1,5 @@
 
-## Terms and Conditions**
+## Terms and Conditions
 
 **Effective Date:** 1 March 2025
 
