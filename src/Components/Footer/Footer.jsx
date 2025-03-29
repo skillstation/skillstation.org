@@ -9,11 +9,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand and Social Links */}
           <div>
-            <img
-              src={WhiteLogo}
-              alt="Skill Station Academy"
-              className="h-12 mb-6"
-            />
+            <Link to="/">
+              <img
+                src={WhiteLogo}
+                className="max-w-[180px]"
+                alt="Skill Station Academy"
+              />
+            </Link>
             <p className="text-gray-400 mb-4">Follow us on</p>
             <div className="flex gap-4 mb-8">
               <a
@@ -221,7 +223,7 @@ const Footer = () => {
             className="text-gray-400 mt-4 md:mt-0"
           >
             Powered by{" "}
-            <span className="font-semibold text-white hover:text-purple-600">
+            <span className="font-semibold text-white hover:text-purple-400 duration-300">
               Starfii Technology
             </span>
           </a>

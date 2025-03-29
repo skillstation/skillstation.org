@@ -130,7 +130,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-gray-50 pt-[80px]">
       <Navbar />
       {/* Hero Carousel */}
       <div className="relative h-screen w-full overflow-hidden">
@@ -199,7 +199,10 @@ const Home = () => {
         </div>
       </div>
       {/* About us section */}
-      <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+      <section
+        className="py-24 bg-gradient-to-b from-white to-gray-50"
+        id="about-section"
+      >
         <div className="container mx-auto px-4 md:px-8">
           {/* Header */}
           <div className="max-w-7xl mx-auto text-center mb-20">

@@ -20,7 +20,8 @@ import {
   limit,
 } from "firebase/firestore";
 
-const workshops = [
+// Workshop data for the component
+const workshopData = [
   {
     id: 1,
     title: "AskIITian: Learn What it Takes to be an IITian",
@@ -74,10 +75,9 @@ const workshops = [
   },
 ];
 
-const WorkShop = () => {
+const Tisat = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
-  const [city, setCity] = useState("Chennai");
   const [registrationType, setRegistrationType] = useState("student");
   const [educationalStatus, setEducationalStatus] = useState("School");
   const [formData, setFormData] = useState({
@@ -104,7 +104,10 @@ const WorkShop = () => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [registrationId, setRegistrationId] = useState("");
 
-  const handleCardClick = (workshop) => {
+  const handleCardClick = (workshopName) => {
+    const workshop =
+      workshopData.find((w) => w.title.includes(workshopName)) ||
+      workshopData[0];
     setSelectedWorkshop(workshop);
     setShowModal(true);
   };
@@ -259,83 +262,119 @@ const WorkShop = () => {
     <div className="min-h-screen bg-gray-50 pt-[80px]">
       <Navbar />
 
-      {/* Mobile View (Only shows when screen is small) */}
-      <div className="md:hidden">
-        <div className="bg-blue-600 p-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Our Workshops</h1>
+      {/* TiSAT Header - Making mobile responsive */}
+      <div className="bg-gradient-to-br from-[#000000] to-[#0c1118] w-full relative overflow-hidden flex items-center justify-center py-8 px-4">
+        <div className="text-center">
+          <h1 className="md:text-4xl text-2xl font-bold text-white mb-2 md:mb-4">
+            TiSAT-2025
+          </h1>
+          <p className="text-white text-base md:text-xl mb-4">
+            Talent Insight and Skill Assessment Test
+          </p>
+          <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+              Download Official Circular
+            </button>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+              Download Program Brochure
+            </button>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+              Apply for TiSAT
+            </button>
+          </div>
+        </div>
+      </div>
 
-          {/* Mobile Workshop Cards */}
-          <div className="space-y-4">
-            {/* AskIITian Mobile Card */}
-            <div className="bg-white rounded-lg p-4 shadow-md">
-              <div className="flex items-center mb-3">
-                <FaGraduationCap className="text-2xl text-blue-600 mr-3" />
-                <span className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded-full">
-                  Workshop
-                </span>
-              </div>
-              <h3 className="text-lg font-bold mb-1">AskIITian</h3>
-              <p className="text-sm text-gray-600 mb-2">
-                Learn What it Takes to be an IITian
-              </p>
-              <div className="text-sm text-gray-500">
-                <p className="flex items-center mb-1">
-                  <FaMapMarkerAlt className="mr-2" /> HIVE, VR Mall, Chennai
-                </p>
-                <p className="flex items-center">
-                  <FaCalendar className="mr-2" /> 12.04.2025
-                </p>
-              </div>
-              <button
-                onClick={() => handleCardClick("AskIITian")}
-                className="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium"
-              >
-                Register Now
-              </button>
-            </div>
+      {/* Proper spacing for mobile content */}
+      <div className=" ">
+        {/* Mobile View (Only shows when screen is small) */}
+        <div className="md:hidden">
+          <div className="p-4">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              Our Workshops
+            </h1>
 
-            {/* Other Workshop Mobile Cards */}
-            {["CodeQuest", "Career Guidance", "Scientific Programming"].map(
-              (workshop) => (
-                <div
-                  key={workshop}
-                  className="bg-white rounded-lg p-4 shadow-md"
-                >
-                  <div className="flex items-center mb-3">
-                    {workshop === "CodeQuest" && (
-                      <FaLaptopCode className="text-2xl text-purple-600 mr-3" />
-                    )}
-                    {workshop === "Career Guidance" && (
-                      <FaLightbulb className="text-2xl text-indigo-600 mr-3" />
-                    )}
-                    {workshop === "Scientific Programming" && (
-                      <FaCode className="text-2xl text-blue-600 mr-3" />
-                    )}
-                    <span className="bg-gray-100 text-gray-600 text-sm px-2 py-1 rounded-full">
-                      Coming Soon
-                    </span>
+            {/* Mobile Workshop Cards */}
+            <div className="space-y-4">
+              {/* AskIITian Mobile Card */}
+              <div className="bg-white rounded-lg p-4 shadow-md border border-gray-100">
+                <div className="flex items-center mb-3">
+                  <div className="bg-blue-50 p-2 rounded-lg mr-3">
+                    <FaGraduationCap className="text-xl text-blue-600" />
                   </div>
-                  <h3 className="text-lg font-bold mb-1">{workshop}</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {workshop === "CodeQuest" && "Workshop & Hackathon"}
-                    {workshop === "Career Guidance" &&
-                      "Choose the Right Career Path"}
-                    {workshop === "Scientific Programming" && "For Engineers"}
-                  </p>
-                  <div className="text-sm text-gray-500">
-                    <p className="flex items-center mb-1">
-                      <FaMapMarkerAlt className="mr-2" />
-                      {workshop === "Career Guidance"
-                        ? "HIVE, VR Mall, Chennai"
-                        : "IIT Madras"}
-                    </p>
-                    <p className="flex items-center">
-                      <FaCalendar className="mr-2" /> Coming Soon
-                    </p>
-                  </div>
+                  <span className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded-full">
+                    Workshop
+                  </span>
                 </div>
-              )
-            )}
+                <h3 className="text-lg font-bold mb-1">AskIITian</h3>
+                <p className="text-sm text-gray-600 mb-2">
+                  Learn What it Takes to be an IITian
+                </p>
+                <div className="text-sm text-gray-500">
+                  <p className="flex items-center mb-1">
+                    <FaMapMarkerAlt className="mr-2" /> HIVE, VR Mall, Chennai
+                  </p>
+                  <p className="flex items-center">
+                    <FaCalendar className="mr-2" /> 12.04.2025
+                  </p>
+                </div>
+                <button
+                  onClick={() => handleCardClick("AskIITian")}
+                  className="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium"
+                >
+                  Register Now
+                </button>
+              </div>
+
+              {/* Other Workshop Mobile Cards */}
+              {["CodeQuest", "Career Guidance", "Scientific Programming"].map(
+                (workshop) => (
+                  <div
+                    key={workshop}
+                    className="bg-white rounded-lg p-4 shadow-md border border-gray-100"
+                  >
+                    <div className="flex items-center mb-3">
+                      {workshop === "CodeQuest" && (
+                        <div className="bg-purple-50 p-2 rounded-lg mr-3">
+                          <FaLaptopCode className="text-xl text-purple-600" />
+                        </div>
+                      )}
+                      {workshop === "Career Guidance" && (
+                        <div className="bg-indigo-50 p-2 rounded-lg mr-3">
+                          <FaLightbulb className="text-xl text-indigo-600" />
+                        </div>
+                      )}
+                      {workshop === "Scientific Programming" && (
+                        <div className="bg-blue-50 p-2 rounded-lg mr-3">
+                          <FaCode className="text-xl text-blue-600" />
+                        </div>
+                      )}
+                      <span className="bg-gray-100 text-gray-600 text-sm px-2 py-1 rounded-full">
+                        Coming Soon
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-bold mb-1">{workshop}</h3>
+                    <p className="text-sm text-gray-600 mb-2">
+                      {workshop === "CodeQuest" && "Workshop & Hackathon"}
+                      {workshop === "Career Guidance" &&
+                        "Choose the Right Career Path"}
+                      {workshop === "Scientific Programming" && "For Engineers"}
+                    </p>
+                    <div className="text-sm text-gray-500">
+                      <p className="flex items-center mb-1">
+                        <FaMapMarkerAlt className="mr-2" />
+                        {workshop === "Career Guidance"
+                          ? "HIVE, VR Mall, Chennai"
+                          : "IIT Madras"}
+                      </p>
+                      <p className="flex items-center">
+                        <FaCalendar className="mr-2" /> Coming Soon
+                      </p>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -496,7 +535,8 @@ const WorkShop = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 mt-20 md:pt-96 lg:pt-72 text-gray-800">
+      {/* Main content area - Adjusting padding for both mobile and desktop */}
+      <div className="max-w-7xl mx-auto px-4 pt-8 md:pt-96 lg:pt-72 text-gray-800">
         {/* Workshop Introduction */}
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
@@ -618,7 +658,7 @@ const WorkShop = () => {
             <div className="p-4 md:p-6">
               <div className="flex justify-between items-center mb-4 md:mb-6">
                 <h2 className="text-xl md:text-2xl font-bold">
-                  Register for {selectedWorkshop}
+                  Register for {selectedWorkshop?.title}
                 </h2>
                 <button
                   onClick={() => setShowModal(false)}
@@ -1035,4 +1075,4 @@ const WorkShop = () => {
   );
 };
 
-export default WorkShop;
+export default Tisat;

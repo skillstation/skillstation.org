@@ -1,21 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../../assets/Logo.svg";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest(".mobile-menu-container")) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
-    <nav className="relative">
-      <div className="flex justify-between items-center max-w-7xl mx-auto p-5 px-4 font-poppins">
-        <img src={logo} className="max-w-[180px]" alt="logo" />
+    <nav
+      className={`fixed top-0 left-0 right-0 bg-white z-50 h-[80px] ${
+        isScrolled ? "shadow-md" : ""
+      }`}
+    >
+      <div className="flex justify-between items-center h-full max-w-7xl mx-auto px-4 font-poppins">
+        <Link to="/">
+          <img src={logo} className="max-w-[180px]" alt="logo" />
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-12 font-semibold font-poppins text-[16px]">
           <div className="relative">
             <Link
-              to="/"
+              to="/workshop"
               className="relative group hover:text-[#0041F5] hover:scale-105 transition-all duration-300"
             >
               Workshops
@@ -24,14 +61,23 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          <Link to="/workshop" className="hover:text-[#0041F5] duration-300">
+          <Link to="/tisat" className="hover:text-[#0041F5] duration-300">
             TISAT Exam
           </Link>
-          <Link to="/about" className="hover:text-[#0041F5] duration-300">
+          <Link
+            to="/"
+            className="hover:text-[#0041F5] duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .getElementById("about-section")
+                .scrollIntoView({ behavior: "smooth" });
+            }}
+          >
             About us
           </Link>
-          <a
-            href="#mentors-section"
+          <Link
+            to="/"
             className="hover:text-[#0041F5] duration-300 cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
@@ -41,7 +87,7 @@ const Navbar = () => {
             }}
           >
             Our Mentor
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Get in Touch button */}
@@ -54,10 +100,11 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-2xl cursor-pointer z-20"
-          onClick={() => setIsMobile(!isMobile)}
+          className="md:hidden text-2xl cursor-pointer z-50"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMobile ? (
+          {isMenuOpen ? (
             <FaTimes className="text-white" />
           ) : (
             <FaBars className="text-black" />
@@ -66,36 +113,49 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden fixed top-0 right-0 w-full h-screen bg-[#0A57FF] transform transition-transform duration-300 ease-in-out ${
-            isMobile ? "translate-x-0" : "translate-x-full"
-          } z-10`}
+          className={`fixed inset-0 bg-[#0A57FF] md:hidden transition-transform duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } z-40`}
         >
-          <div className="flex flex-col items-center justify-center h-full gap-8">
+          <div className="flex flex-col items-center justify-center h-full gap-8 mobile-menu-container">
             <Link
               to="/"
               className="text-white text-2xl font-bold"
-              onClick={() => setIsMobile(false)}
+              onClick={() => setIsMenuOpen(false)}
             >
               Workshops
             </Link>
             <Link
               to="/workshop"
               className="text-white text-2xl font-bold"
-              onClick={() => setIsMobile(false)}
+              onClick={() => setIsMenuOpen(false)}
             >
               TISAT Exam
             </Link>
             <Link
               to="/about"
               className="text-white text-2xl font-bold"
-              onClick={() => setIsMobile(false)}
+              onClick={() => setIsMenuOpen(false)}
             >
               About us
             </Link>
             <a
+              href="#mentors-section"
+              className="text-white text-2xl font-bold"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMenuOpen(false);
+                document
+                  .getElementById("mentors-section")
+                  .scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Our Mentor
+            </a>
+            <a
               href="https://wa.me/+917305959397"
               className="bg-white text-[#0A57FF] px-6 py-3 rounded-md text-xl font-bold mt-4"
-              onClick={() => setIsMobile(false)}
+              onClick={() => setIsMenuOpen(false)}
             >
               Contact Us
             </a>
