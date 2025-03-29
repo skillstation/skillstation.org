@@ -216,17 +216,9 @@ const Footer = () => {
               <span className="text-gray-400">11149/2022</span>
             </div>
           </div>
-          <a
-            href="https://www.starfii.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 mt-4 md:mt-0"
-          >
-            Powered by{" "}
-            <span className="font-semibold text-white hover:text-purple-400 duration-300">
-              Starfii Technology
-            </span>
-          </a>
+          <p className="text-gray-400 mt-4 md:mt-0">
+            ©2025 Skillstation. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
