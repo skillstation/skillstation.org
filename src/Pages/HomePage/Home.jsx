@@ -6,6 +6,9 @@ import Hero3 from "../../assets/3.png";
 import Hero4 from "../../assets/4.png";
 import mentor1 from "../../assets/mentor1.jpg";
 import Footer from "../../Components/Footer/Footer";
+import sai from "../../assets/sai.jpg";
+import elankovan from "../../assets/elankovan.jpeg";
+import sudha from "../../assets/sudha.jpg";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -864,7 +867,7 @@ const Home = () => {
                   <div className="w-32 h-32 mx-auto mb-6">
                     <div className="w-full h-full rounded-full border-2 border-[#9747FF] p-1">
                       <img
-                        src={mentor1}
+                        src={elankovan}
                         alt="Elankovan Gopal"
                         className="w-full h-full rounded-full object-cover"
                       />
@@ -874,7 +877,7 @@ const Home = () => {
                     Elankovan Gopal
                   </h3>
                   <p className="text-gray-600 text-center text-sm mb-4">
-                    IIT Kharagpur
+                    Faculty Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#9747FF] to-[#FF3C8C] mx-auto mb-4"></div>
                   <p className="text-gray-700 text-center">
@@ -890,17 +893,17 @@ const Home = () => {
                   <div className="w-32 h-32 mx-auto mb-6">
                     <div className="w-full h-full rounded-full border-2 border-[#00FF94] p-1">
                       <img
-                        src={mentor1}
+                        src={sudha}
                         alt="Priyanka"
                         className="w-full h-full rounded-full object-cover"
                       />
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 text-center mb-2">
-                    Priyanka
+                    Sudha Priyanka
                   </h3>
                   <p className="text-gray-600 text-center text-sm mb-4">
-                    IIT Kharagpur
+                    Faculty Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#005B41] to-[#00FF94] mx-auto mb-4"></div>
                   <p className="text-gray-700 text-center">
@@ -916,7 +919,7 @@ const Home = () => {
                   <div className="w-32 h-32 mx-auto mb-6">
                     <div className="w-full h-full rounded-full border-2 border-[#2827CC] p-1">
                       <img
-                        src={mentor1}
+                        src={sai}
                         alt="Sai Likith"
                         className="w-full h-full rounded-full object-cover"
                       />
@@ -926,7 +929,7 @@ const Home = () => {
                     Sai Likith
                   </h3>
                   <p className="text-gray-600 text-center text-sm mb-4">
-                    IIT Kharagpur
+                    Student Mentor,IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#B4161B] to-[#2827CC] mx-auto mb-4"></div>
                   <p className="text-gray-700 text-center">
@@ -941,17 +944,17 @@ const Home = () => {
                   <div className="w-32 h-32 mx-auto mb-6">
                     <div className="w-full h-full rounded-full border-2 border-[#2827CC] p-1">
                       <img
-                        src={mentor1}
-                        alt="Sai Likith"
+                        src="https://ui-avatars.com/api/?name=Ruthvik&background=random"
+                        alt="Ruthvik"
                         className="w-full h-full rounded-full object-cover"
                       />
                     </div>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 text-center mb-2">
-                    Sai Likith
+                    Ruthvik
                   </h3>
                   <p className="text-gray-600 text-center text-sm mb-4">
-                    IIT Kharagpur
+                    Student Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#B4161B] to-[#2827CC] mx-auto mb-4"></div>
                   <p className="text-gray-700 text-center">
