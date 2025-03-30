@@ -880,9 +880,6 @@ const Home = () => {
                     Faculty Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#9747FF] to-[#FF3C8C] mx-auto mb-4"></div>
-                  <p className="text-gray-700 text-center">
-                    Expert in Advanced Computing & AI
-                  </p>
                 </div>
               </div>
 
@@ -906,9 +903,6 @@ const Home = () => {
                     Faculty Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#005B41] to-[#00FF94] mx-auto mb-4"></div>
-                  <p className="text-gray-700 text-center">
-                    Specialist in Engineering Mathematics
-                  </p>
                 </div>
               </div>
 
@@ -932,9 +926,6 @@ const Home = () => {
                     Student Mentor,IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#B4161B] to-[#2827CC] mx-auto mb-4"></div>
-                  <p className="text-gray-700 text-center">
-                    Expert in Programming & Algorithms
-                  </p>
                 </div>
               </div>
 
@@ -957,9 +948,6 @@ const Home = () => {
                     Student Mentor, IIT Madras
                   </p>
                   <div className="w-12 h-[2px] bg-gradient-to-r from-[#B4161B] to-[#2827CC] mx-auto mb-4"></div>
-                  <p className="text-gray-700 text-center">
-                    Expert in Programming & Algorithms
-                  </p>
                 </div>
               </div>
 
@@ -1323,7 +1311,10 @@ const Home = () => {
         <p className="text-blue-100 mb-8 md:text-lg">
           Join our community of learners and unlock your potential today.
         </p>
-        <button className="bg-white text-blue-600 px-4 md:px-8 md:py-4 py-2 rounded-full text-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl inline-flex items-center">
+        <button
+          onClick={() => (window.location.href = "https://wa.me/+917305959397")}
+          className="bg-white text-blue-600 px-4 md:px-8 md:py-4 py-2 rounded-full text-sm md:text-lg font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl inline-flex items-center"
+        >
           Join Our Learning Community
           <i className="fas fa-arrow-right ml-2"></i>
         </button>

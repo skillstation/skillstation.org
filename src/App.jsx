@@ -2,14 +2,26 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Pages/HomePage/Home";
 import WorkShop from "./Pages/WorkShop/WorkShop";
 import Tistat from "./Pages/Tisat/Tistat";
+import DirectRegistration from "./Pages/DirectRegistration/DirectRegistration";
+import Privacy from "./Pages/Agreement/Privacy";
+import TermsAndCondition from "./Pages/Agreement/TermsAndCondition";
+import Refund from "./Pages/Agreement/Refund";
+
 function App() {
   return (
     <div className="font-poppins">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/workshop" element={<WorkShop />} />
+          <Route path="/workshops" element={<WorkShop />} />
           <Route path="/tisat" element={<Tistat />} />
+          <Route
+            path="/workshops/:workshopName"
+            element={<DirectRegistration />}
+          />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
+          <Route path="/refund" element={<Refund />} />
         </Routes>
       </Router>
     </div>

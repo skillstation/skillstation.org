@@ -19,7 +19,7 @@ const Footer = () => {
             <p className="text-gray-400 mb-4">Follow us on</p>
             <div className="flex gap-4 mb-8">
               <a
-                href="#"
+                href="https://www.linkedin.com/in/elangovan-gopal/"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
               >
                 <i className="fab fa-linkedin-in"></i>
@@ -31,7 +31,7 @@ const Footer = () => {
                 <i className="fab fa-youtube"></i>
               </a>
               <a
-                href="#"
+                href="https://wa.me/+917305959397"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
               >
                 <i className="fab fa-whatsapp"></i>
@@ -64,7 +64,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <Link
-                  to="/about"
+                  to="/"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   About Us
@@ -72,7 +72,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/programs"
+                  to="/"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Programmes Offered
@@ -80,7 +80,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/mentors"
+                  to="/"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Our Mentors
@@ -88,7 +88,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/testimonials"
+                  to="/"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Testimonials
@@ -96,7 +96,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/faq"
+                  to="/"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   FAQs
@@ -125,7 +125,7 @@ const Footer = () => {
                   TiSAT
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/iitjee"
                   className="text-gray-400 hover:text-white transition-colors"
@@ -140,7 +140,7 @@ const Footer = () => {
                 >
                   GATE
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -150,7 +150,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li>
                 <Link
-                  to="/contact"
+                  to="https://wa.me/+917305959397"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Contact Us
@@ -166,7 +166,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/terms"
+                  to="/terms-and-conditions"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Terms of Service

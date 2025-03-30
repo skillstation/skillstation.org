@@ -52,7 +52,7 @@ const Navbar = () => {
         <div className="hidden md:flex gap-12 font-semibold font-poppins text-[16px]">
           <div className="relative">
             <Link
-              to="/workshop"
+              to="/workshops"
               className="relative group hover:text-[#0041F5] hover:scale-105 transition-all duration-300"
             >
               Workshops

@@ -19,6 +19,7 @@ import {
   orderBy,
   limit,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 // Workshop data for the component
 const workshopData = [
@@ -318,12 +319,41 @@ const Tisat = () => {
                     <FaCalendar className="mr-2" /> 12.04.2025
                   </p>
                 </div>
-                <button
-                  onClick={() => handleCardClick("AskIITian")}
-                  className="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium"
-                >
-                  Register Now
-                </button>
+                <div className="flex justify-between items-center mt-3">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const shareUrl = `${window.location.origin}/workshops/askiitians`;
+                      navigator.clipboard.writeText(shareUrl);
+                      alert(
+                        "Registration link copied! Share it on WhatsApp or any platform."
+                      );
+                    }}
+                    className="text-blue-600 text-xs flex items-center hover:underline"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-3 w-3 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                      />
+                    </svg>
+                    Share Link
+                  </button>
+                  <button
+                    onClick={() => handleCardClick("AskIITian")}
+                    className="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
+                  >
+                    Register Now
+                  </button>
+                </div>
               </div>
 
               {/* Other Workshop Mobile Cards */}
@@ -371,6 +401,49 @@ const Tisat = () => {
                         <FaCalendar className="mr-2" /> Coming Soon
                       </p>
                     </div>
+                    <div className="flex justify-between items-center mt-3">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const workshopId = workshop
+                            .toLowerCase()
+                            .replace(/\s+/g, "");
+                          const shareUrl = `${window.location.origin}/workshops/${workshopId}`;
+                          navigator.clipboard.writeText(shareUrl);
+                          alert(
+                            "Registration link copied! Share it on WhatsApp or any platform."
+                          );
+                        }}
+                        className={`text-xs flex items-center hover:underline ${
+                          workshop === "CodeQuest"
+                            ? "text-purple-600"
+                            : workshop === "Career Guidance"
+                            ? "text-indigo-600"
+                            : "text-blue-600"
+                        }`}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-3 w-3 mr-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                          />
+                        </svg>
+                        Share Link
+                      </button>
+                      <div className="opacity-50">
+                        <span className="bg-gray-200 text-gray-500 py-2 px-4 rounded-lg text-sm font-medium">
+                          Coming Soon
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 )
               )}
@@ -409,7 +482,7 @@ const Tisat = () => {
           </div>
 
           {/* Enhanced White Rectangle Container */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl">
+          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-full max-w-7xl">
             <div className="mx-4 bg-white rounded-2xl shadow-2xl p-8 backdrop-blur-lg border border-gray-100">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {/* AskIITian Card */}
@@ -432,7 +505,10 @@ const Tisat = () => {
                   <p className="text-sm text-gray-400 mt-2">
                     HIVE, VR Mall, Chennai
                   </p>
-                  <p className="text-sm text-gray-400 mt-2">Date: 12.04.2025</p>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Date & Time: Sunday 27th April from 4 PM to 6 PM (Live
+                    Webinar also available via Skype Online)
+                  </p>
 
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -536,7 +612,7 @@ const Tisat = () => {
       </div>
 
       {/* Main content area - Adjusting padding for both mobile and desktop */}
-      <div className="max-w-7xl mx-auto px-4 pt-8 md:pt-96 lg:pt-72 text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 pt-8 md:pt-[500px] lg:pt-96 text-gray-800">
         {/* Workshop Introduction */}
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
@@ -602,7 +678,7 @@ const Tisat = () => {
               <div className="space-y-4 text-gray-600">
                 <div className="flex items-center">
                   <span className="font-semibold w-24">Date:</span>
-                  <span>12.04.2025</span>
+                  <span>Sunday 27th April from 4 PM to 6 PM</span>
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold w-24">Venue:</span>
@@ -709,7 +785,7 @@ const Tisat = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -722,7 +798,7 @@ const Tisat = () => {
                           name="mobile"
                           value={formData.mobile}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -735,7 +811,7 @@ const Tisat = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -747,7 +823,7 @@ const Tisat = () => {
                           name="relationship"
                           value={formData.relationship}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Parent">Parent</option>
@@ -763,7 +839,7 @@ const Tisat = () => {
                           name="preferredMode"
                           value={formData.preferredMode}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Call">Call</option>
@@ -789,7 +865,7 @@ const Tisat = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -802,7 +878,7 @@ const Tisat = () => {
                           name="dateOfBirth"
                           value={formData.dateOfBirth}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -814,7 +890,7 @@ const Tisat = () => {
                           name="gender"
                           value={formData.gender}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="">Select Gender</option>
@@ -832,7 +908,7 @@ const Tisat = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -845,7 +921,7 @@ const Tisat = () => {
                           name="mobile"
                           value={formData.mobile}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -857,7 +933,7 @@ const Tisat = () => {
                           name="educationalStatus"
                           value={educationalStatus}
                           onChange={(e) => setEducationalStatus(e.target.value)}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="School">School Student</option>
@@ -875,7 +951,7 @@ const Tisat = () => {
                           name="institutionName"
                           value={formData.institutionName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -887,7 +963,7 @@ const Tisat = () => {
                           name="yearOfStudy"
                           value={formData.yearOfStudy}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           {educationalStatus === "School" ? (
@@ -916,7 +992,7 @@ const Tisat = () => {
                           name="preferredMode"
                           value={formData.preferredMode}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Online">Online</option>
@@ -931,7 +1007,7 @@ const Tisat = () => {
                           name="previousWorkshop"
                           value={formData.previousWorkshop}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="No">No</option>
@@ -948,7 +1024,7 @@ const Tisat = () => {
                         name="reasonForJoining"
                         value={formData.reasonForJoining}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                         rows="3"
                         required
                       ></textarea>
@@ -962,7 +1038,7 @@ const Tisat = () => {
                         name="hearAboutUs"
                         value={formData.hearAboutUs}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                         required
                       >
                         <option value="Social Media">Social Media</option>
@@ -999,8 +1075,28 @@ const Tisat = () => {
                       required
                     />
                     <span className="ml-2 block text-sm text-gray-700">
-                      I have read and agree to the Refund Policy, Privacy
-                      Policy, and Terms & Conditions.
+                      I have read and agree to the{" "}
+                      <Link
+                        to="/refund"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Refund Policy
+                      </Link>
+                      ,{" "}
+                      <Link
+                        to="/privacy"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Privacy Policy
+                      </Link>
+                      , and{" "}
+                      <Link
+                        to="/terms-and-conditions"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Terms & Conditions
+                      </Link>
+                      .
                     </span>
                   </div>
                 </div>

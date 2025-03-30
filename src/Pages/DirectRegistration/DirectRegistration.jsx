@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import Footer from "../../Components/Footer/Footer";
-import {
-  FaMapMarkerAlt,
-  FaCalendar,
-  FaGraduationCap,
-  FaCode,
-  FaLightbulb,
-  FaLaptopCode,
-} from "react-icons/fa";
-import { db } from "../../firebaseConfig";
 import {
   collection,
   addDoc,
@@ -20,9 +12,11 @@ import {
   limit,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { db } from "../../firebaseConfig";
 
-const workshops = [
-  {
+// Workshop data mapping for direct links
+const workshopMap = {
+  askiitians: {
     id: 1,
     title: "AskIITian: Learn What it Takes to be an IITian",
     type: "Workshop",
@@ -30,10 +24,10 @@ const workshops = [
     duration: "1 Day",
     description:
       "Get insights from IITians about their journey and learn what it takes to crack IIT.",
+    date: "Sunday 27th April from 4 PM to 6 PM",
     image: "workshop1.jpg",
-    isHighlight: true,
   },
-  {
+  codequest: {
     id: 2,
     title: "CodeQuest: Workshop & Hackathon",
     type: "Workshop, Hackathon",
@@ -41,9 +35,10 @@ const workshops = [
     duration: "2 Days",
     description:
       "Join us for an exciting coding workshop followed by a hackathon challenge.",
+    date: "Coming Soon",
     image: "workshop2.jpg",
   },
-  {
+  careerguidance: {
     id: 3,
     title: "Choosing the Right Career Path",
     type: "Workshop",
@@ -51,9 +46,10 @@ const workshops = [
     duration: "1 Day",
     description:
       "Career guidance program to help you make informed decisions about your future.",
+    date: "Coming Soon",
     image: "workshop3.jpg",
   },
-  {
+  scientificprogramming: {
     id: 4,
     title: "Scientific Programming for Engineers",
     type: "7 day Bootcamp",
@@ -61,24 +57,16 @@ const workshops = [
     duration: "7 Days",
     description:
       "Intensive bootcamp focused on scientific programming and engineering applications.",
+    date: "Coming Soon",
     image: "workshop4.jpg",
   },
-  {
-    id: 5,
-    title: "Programming for Web",
-    type: "7 day Bootcamp",
-    location: "IIT Madras",
-    duration: "7 Days",
-    description:
-      "Comprehensive web development bootcamp covering modern technologies.",
-    image: "workshop5.jpg",
-  },
-];
+};
 
-const WorkShop = () => {
-  const [showModal, setShowModal] = useState(false);
+const DirectRegistration = () => {
+  const { workshopName } = useParams();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(true);
   const [selectedWorkshop, setSelectedWorkshop] = useState(null);
-  const [city, setCity] = useState("Chennai");
   const [registrationType, setRegistrationType] = useState("student");
   const [educationalStatus, setEducationalStatus] = useState("School");
   const [formData, setFormData] = useState({
@@ -104,11 +92,27 @@ const WorkShop = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [registrationId, setRegistrationId] = useState("");
+  const [workshopAvailable, setWorkshopAvailable] = useState(true);
 
-  const handleCardClick = (workshop) => {
-    setSelectedWorkshop(workshop);
-    setShowModal(true);
-  };
+  useEffect(() => {
+    // Normalize the workshop name to lowercase and remove special characters
+    const normalizedName = workshopName.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+    // Find the corresponding workshop
+    const workshop = workshopMap[normalizedName];
+
+    if (workshop) {
+      setSelectedWorkshop(workshop);
+      // Auto-open modal
+      setShowModal(true);
+    } else {
+      // Workshop not found, redirect to main workshop page
+      setWorkshopAvailable(false);
+      setTimeout(() => {
+        navigate("/workshop");
+      }, 3000);
+    }
+  }, [workshopName, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -172,6 +176,7 @@ const WorkShop = () => {
         registrationId: generatedId,
         timestamp: serverTimestamp(),
         UserType: registrationType,
+        WorkshopName: selectedWorkshop.title,
         FullName: formData.fullName,
         Email: formData.email,
         Mobile: formData.mobile,
@@ -256,374 +261,73 @@ const WorkShop = () => {
     }
   };
 
+  if (!workshopAvailable) {
+    return (
+      <div className="min-h-screen bg-gray-50 pt-[80px] flex items-center justify-center">
+        <div className="text-center p-8">
+          <h1 className="text-2xl font-bold mb-4">Workshop Not Found</h1>
+          <p className="mb-4">
+            The workshop you're looking for doesn't exist or is no longer
+            available.
+          </p>
+          <p>Redirecting to workshops page...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 pt-[80px]">
       <Navbar />
 
-      {/* Mobile View (Only shows when screen is small) */}
-      <div className="md:hidden">
-        <div className="bg-blue-600 p-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Our Workshops</h1>
-
-          {/* Mobile Workshop Cards */}
-          <div className="space-y-4">
-            {/* AskIITian Mobile Card */}
-            <div className="bg-white rounded-lg p-4 shadow-md">
-              <div className="flex items-center mb-3">
-                <FaGraduationCap className="text-2xl text-blue-600 mr-3" />
-                <span className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded-full">
-                  Workshop
-                </span>
-              </div>
-              <h3 className="text-lg font-bold mb-1">AskIITian</h3>
-              <p className="text-sm text-gray-600 mb-2">
-                Learn What it Takes to be an IITian
-              </p>
-              <div className="text-sm text-gray-500">
-                <p className="flex items-center mb-1">
-                  <FaMapMarkerAlt className="mr-2" /> HIVE, VR Mall, Chennai
-                </p>
-                <p className="flex items-center">
-                  <FaCalendar className="mr-2" /> Sunday 27th April from 4 PM to
-                  6 PM (Live Webinar also available via Skype Online)
-                </p>
-              </div>
-              <button
-                onClick={() => handleCardClick("AskIITian")}
-                className="w-full mt-3 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium"
-              >
-                Register Now
-              </button>
-            </div>
-
-            {/* Other Workshop Mobile Cards */}
-            {["CodeQuest", "Career Guidance", "Scientific Programming"].map(
-              (workshop) => (
-                <div
-                  key={workshop}
-                  className="bg-white rounded-lg p-4 shadow-md"
-                >
-                  <div className="flex items-center mb-3">
-                    {workshop === "CodeQuest" && (
-                      <FaLaptopCode className="text-2xl text-purple-600 mr-3" />
-                    )}
-                    {workshop === "Career Guidance" && (
-                      <FaLightbulb className="text-2xl text-indigo-600 mr-3" />
-                    )}
-                    {workshop === "Scientific Programming" && (
-                      <FaCode className="text-2xl text-blue-600 mr-3" />
-                    )}
-                    <span className="bg-gray-100 text-gray-600 text-sm px-2 py-1 rounded-full">
-                      Coming Soon
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">{workshop}</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    {workshop === "CodeQuest" && "Workshop & Hackathon"}
-                    {workshop === "Career Guidance" &&
-                      "Choose the Right Career Path"}
-                    {workshop === "Scientific Programming" && "For Engineers"}
-                  </p>
-                  <div className="text-sm text-gray-500">
-                    <p className="flex items-center mb-1">
-                      <FaMapMarkerAlt className="mr-2" />
-                      {workshop === "Career Guidance"
-                        ? "HIVE, VR Mall, Chennai"
-                        : "IIT Madras"}
-                    </p>
-                    <p className="flex items-center">
-                      <FaCalendar className="mr-2" /> Coming Soon
-                    </p>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Desktop View (Hidden on mobile) */}
-      <div className="hidden md:block">
-        {/* Your existing desktop layout code */}
-        <div className="relative">
-          {/* Enhanced Blue Background with Gradient */}
-          <div className="bg-gradient-to-br from-[#0041F5] to-[#0066FF] w-full h-[500px] relative overflow-hidden">
-            {/* Abstract Background Shapes */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
-            </div>
-
-            {/* Replace city selector with motivational quote section */}
-            <div className="max-w-7xl mx-auto px-4 pt-12">
-              <div className="text-center text-white space-y-4">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
-                  Your Journey to Success
-                  <br />
-                  Begins with a Single Step
-                </h2>
-                <p className="text-lg md:text-xl  text-white/80 max-w-2xl mx-auto px-4">
-                  Whether you're in 11th grade dreaming of IIT or a college
-                  student aiming for excellence, we're here to guide your path
-                  to success.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced White Rectangle Container */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl">
-            <div className="mx-4 bg-white rounded-2xl shadow-2xl p-8 backdrop-blur-lg border border-gray-100">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                {/* AskIITian Card */}
-                <div
-                  className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden"
-                  onClick={() => handleCardClick("AskIITian")}
-                >
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaGraduationCap className="text-3xl text-blue-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    AskIITian
-                  </h3>
-                  <p className="text-md text-gray-500">
-                    Learn What it Takes to be an IITian
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    HIVE, VR Mall, Chennai
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date & Time: Sunday 27th April from 4 PM to 6 PM (Live
-                    Webinar also available via Skype Online)
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transform transition-transform duration-300 hover:scale-105">
-                      Register Here
-                    </button>
-                  </div>
-                </div>
-
-                {/* CodeQuest Card */}
-                <div className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaLaptopCode className="text-3xl text-purple-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-purple-600 font-semibold bg-purple-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop, Hackathon
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    CodeQuest
-                  </h3>
-                  <p className="text-md text-gray-500">Workshop & Hackathon</p>
-                  <p className="text-xm text-gray-400 mt-2">IIT Madras</p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-
-                {/* Career Guidance Card */}
-                <div className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 w-20 h-20 rounded-2xl flex items-center justify-center  mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaLightbulb className="text-3xl text-indigo-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-indigo-600 font-semibold bg-indigo-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    Career Guidance
-                  </h3>
-                  <p className="text-md text-gray-500">
-                    Choose the Right Career Path
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    HIVE, VR Mall, Chennai
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-
-                {/* Scientific Programming Card - Now in Blue */}
-                <div className="group bg-gradient-to-br from-[#0041F5] to-[#0066FF] rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-white/10 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 backdrop-blur-lg">
-                    <FaCode className="text-3xl text-white group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-white font-semibold bg-white/20 px-2 py-1 rounded-full mb-2 inline-block">
-                    7 day Bootcamp
-                  </span>
-                  <h3 className="text-xl font-bold text-white mb-1">
-                    Scientific Programming
-                  </h3>
-                  <p className="text-md text-white/80">For Engineers</p>
-                  <p className="text-sm text-white/60 mt-2">IIT Madras</p>
-                  <p className="text-sm text-white/60 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 mt-20 md:pt-96 lg:pt-72 text-gray-800">
-        {/* Workshop Introduction */}
-        <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            Upcoming Workshop: AskIITian Workshop
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8">
-            Learn What it Takes to be an IITian - A comprehensive workshop
-            designed to guide aspiring IITians on their journey to success.
+      <div className="py-12 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">
+            {selectedWorkshop?.title}
+          </h1>
+          <p className="text-lg text-gray-600 mb-8">
+            {selectedWorkshop?.description}
           </p>
-        </div>
 
-        {/* Workshop Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-8">
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">
-                Workshop Highlights
-              </h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Expert guidance from successful IITians
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Interactive problem-solving sessions
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Study strategies and time management tips
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Personal mentoring opportunities
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">
-                Who Should Attend?
-              </h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Students from Class XI and XII
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Aspiring IIT-JEE candidates
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Parents seeking guidance for their children
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-gray-50 p-6 rounded-xl">
-              <h3 className="text-2xl font-semibold mb-4">Workshop Details</h3>
-              <div className="space-y-4 text-gray-600">
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Date:</span>
-                  <span>Sunday 27th April from 4 PM to 6 PM</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Venue:</span>
-                  <span>HIVE, VR Mall, Chennai</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Duration:</span>
-                  <span>One Day Intensive Workshop</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Fee:</span>
-                  <span>Rs. 500</span>
-                </div>
+          <div className="bg-white p-6 rounded-xl shadow-md mb-8">
+            <h2 className="text-xl font-semibold mb-4">Workshop Details</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+              <div>
+                <p className="font-medium">Location:</p>
+                <p className="text-gray-600">{selectedWorkshop?.location}</p>
+              </div>
+              <div>
+                <p className="font-medium">Date:</p>
+                <p className="text-gray-600">{selectedWorkshop?.date}</p>
+              </div>
+              <div>
+                <p className="font-medium">Duration:</p>
+                <p className="text-gray-600">{selectedWorkshop?.duration}</p>
+              </div>
+              <div>
+                <p className="font-medium">Type:</p>
+                <p className="text-gray-600">{selectedWorkshop?.type}</p>
               </div>
             </div>
-
-            <div className="bg-blue-50 p-6 rounded-xl">
-              <h3 className="text-2xl font-semibold mb-4">
-                Registration Open!
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Limited seats available. Register now to secure your spot in
-                this transformative workshop.
-              </p>
-              <button
-                onClick={() => setShowModal(true)}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
-              >
-                Register Now
-              </button>
-            </div>
           </div>
-        </div>
 
-        {/* Note about other workshops */}
-        <div className="mt-16 p-6 bg-gray-50 rounded-xl">
-          <h3 className="text-2xl font-semibold mb-4">
-            More Workshops Coming Soon
-          </h3>
-          <p className="text-gray-600">
-            Stay tuned for our upcoming workshops including CodeQuest, Career
-            Guidance Programme, Scientific Programming for Engineers, and
-            Programming for Web. Subscribe to our newsletter to get notified
-            when registrations open.
-          </p>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+          >
+            Register Now
+          </button>
         </div>
       </div>
 
       {/* Registration Modal */}
-      {showModal && (
+      {showModal && selectedWorkshop && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-2 md:p-4 z-50">
           <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-4 md:p-6">
               <div className="flex justify-between items-center mb-4 md:mb-6">
                 <h2 className="text-xl md:text-2xl font-bold">
-                  Register for {selectedWorkshop}
+                  Register for {selectedWorkshop.title}
                 </h2>
                 <button
                   onClick={() => setShowModal(false)}
@@ -674,7 +378,7 @@ const WorkShop = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -687,7 +391,7 @@ const WorkShop = () => {
                           name="mobile"
                           value={formData.mobile}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -700,7 +404,7 @@ const WorkShop = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -712,7 +416,7 @@ const WorkShop = () => {
                           name="relationship"
                           value={formData.relationship}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Parent">Parent</option>
@@ -728,7 +432,7 @@ const WorkShop = () => {
                           name="preferredMode"
                           value={formData.preferredMode}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Call">Call</option>
@@ -754,7 +458,7 @@ const WorkShop = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -767,7 +471,7 @@ const WorkShop = () => {
                           name="dateOfBirth"
                           value={formData.dateOfBirth}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -779,7 +483,7 @@ const WorkShop = () => {
                           name="gender"
                           value={formData.gender}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="">Select Gender</option>
@@ -797,7 +501,7 @@ const WorkShop = () => {
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -810,7 +514,7 @@ const WorkShop = () => {
                           name="mobile"
                           value={formData.mobile}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -822,7 +526,7 @@ const WorkShop = () => {
                           name="educationalStatus"
                           value={educationalStatus}
                           onChange={(e) => setEducationalStatus(e.target.value)}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="School">School Student</option>
@@ -840,7 +544,7 @@ const WorkShop = () => {
                           name="institutionName"
                           value={formData.institutionName}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         />
                       </div>
@@ -852,7 +556,7 @@ const WorkShop = () => {
                           name="yearOfStudy"
                           value={formData.yearOfStudy}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           {educationalStatus === "School" ? (
@@ -881,7 +585,7 @@ const WorkShop = () => {
                           name="preferredMode"
                           value={formData.preferredMode}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="Online">Online</option>
@@ -896,7 +600,7 @@ const WorkShop = () => {
                           name="previousWorkshop"
                           value={formData.previousWorkshop}
                           onChange={handleInputChange}
-                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                          className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                           required
                         >
                           <option value="No">No</option>
@@ -913,7 +617,7 @@ const WorkShop = () => {
                         name="reasonForJoining"
                         value={formData.reasonForJoining}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                         rows="3"
                         required
                       ></textarea>
@@ -927,7 +631,7 @@ const WorkShop = () => {
                         name="hearAboutUs"
                         value={formData.hearAboutUs}
                         onChange={handleInputChange}
-                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3 px-4"
+                        className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-4 py-3"
                         required
                       >
                         <option value="Social Media">Social Media</option>
@@ -1060,4 +764,4 @@ const WorkShop = () => {
   );
 };
 
-export default WorkShop;
+export default DirectRegistration;
