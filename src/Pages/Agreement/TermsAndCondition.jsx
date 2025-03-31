@@ -13,92 +13,118 @@ const TermsAndCondition = () => {
         </h1>
 
         <main className="prose prose-blue max-w-none">
+          <p className="mb-6">
+            <strong>Effective Date:</strong> 1 March 2025
+          </p>
+
           <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">1. Introduction</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              1. Acceptance of Terms
+            </h2>
             <p>
-              Welcome to SkillStation Academy. By accessing or using our
-              platform, you agree to abide by these Terms and Conditions. Please
-              read them carefully before proceeding.
+              By accessing this website (www.skillstation.org), you agree to
+              comply with these Terms and Conditions. If you do not agree, you
+              should not use our platform.
             </p>
           </section>
 
           <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">2. User Accounts</h2>
+            <h2 className="text-xl font-semibold mb-2">2. Eligibility</h2>
             <p>
-              To access certain features, you must create an account. You agree
-              to:
+              You must be at least 18 years old to use our services. If you are
+              under 18, you must obtain parental consent.
             </p>
+          </section>
+
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">
+              3. User Responsibilities
+            </h2>
             <ul className="list-disc pl-6">
-              <li>Provide accurate and complete information.</li>
-              <li>Keep your login credentials confidential.</li>
-              <li>Be responsible for any activity under your account.</li>
+              <li>Provide accurate registration details.</li>
+              <li>Maintain confidentiality of login credentials.</li>
+              <li>Do not engage in fraudulent or harmful activities.</li>
             </ul>
           </section>
 
           <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">3. Acceptable Use</h2>
-            <p>You agree not to:</p>
+            <h2 className="text-xl font-semibold mb-2">
+              4. Intellectual Property
+            </h2>
+            <p>
+              All content on this website, including text, graphics, logos, and
+              software, is the property of Skill Station Academy and protected
+              by copyright laws.
+            </p>
+          </section>
+
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">
+              5. Prohibited Activities
+            </h2>
+            <p>Users must not:</p>
             <ul className="list-disc pl-6">
-              <li>Engage in fraudulent, harmful, or illegal activities.</li>
-              <li>Distribute unauthorized content or spam.</li>
-              <li>Violate intellectual property rights.</li>
-              <li>Interfere with platform functionality or security.</li>
+              <li>
+                Attempt to hack, disrupt, or interfere with website operations.
+              </li>
+              <li>Use content for commercial purposes without permission.</li>
+              <li>Upload or share illegal or offensive content.</li>
             </ul>
           </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2">
-              4. Payments and Refunds
+              6. Payment and Refund Policy
+            </h2>
+            <ul className="list-disc pl-6">
+              <li>Payments must be made through secure channels.</li>
+              <li>
+                Refund requests will be considered based on service completion
+                status and specific terms outlined at the time of enrollment.
+              </li>
+            </ul>
+          </section>
+
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">
+              7. Limitation of Liability
             </h2>
             <p>
-              If you purchase any courses or services, you agree to our pricing
-              and refund policies outlined separately.
+              Skill Station Academy is not liable for any direct or indirect
+              damages resulting from the use of our services.
+            </p>
+          </section>
+
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">8. Termination</h2>
+            <p>
+              We reserve the right to terminate user access if there is a breach
+              of these Terms and Conditions.
             </p>
           </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2">
-              5. Intellectual Property
+              9. Governing Law and Dispute Resolution
             </h2>
             <p>
-              All content on this platform, including text, videos, and
-              graphics, is the property of SkillStation Academy and may not be
-              copied, modified, or distributed without permission.
+              These Terms are governed by the laws of India. Disputes will be
+              resolved through arbitration in Bengaluru under the Arbitration
+              and Conciliation Act, 1996.
             </p>
           </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2">
-              6. Limitation of Liability
+              10. Contact Information
             </h2>
-            <p>
-              We are not liable for any indirect, incidental, or consequential
-              damages resulting from your use of our platform.
-            </p>
+            <p>For queries regarding these Terms, contact us at:</p>
+            <p className="text-blue-500">skillstation.academy@gmail.com</p>
           </section>
 
-          <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">7. Termination</h2>
-            <p>
-              We reserve the right to suspend or terminate your access if you
-              violate these terms.
-            </p>
-          </section>
-
-          <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">8. Changes to Terms</h2>
-            <p>
-              We may update these Terms and Conditions from time to time.
-              Continued use of our platform signifies your acceptance of any
-              changes.
-            </p>
-          </section>
-
-          <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">9. Contact Us</h2>
-            <p>If you have any questions, feel free to contact us at:</p>
-            <p className="text-blue-500">support@skillstation.org</p>
-          </section>
+          <p className="mt-6">
+            By using our website, you agree to these Terms and Conditions.
+          </p>
         </main>
       </div>
 

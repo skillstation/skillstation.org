@@ -8,78 +8,103 @@ const Refund = () => {
       <Navbar />
 
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold mb-8 text-gray-800">Refund Policy</h1>
+        <h1 className="text-3xl font-bold mb-8 text-gray-800">
+          Refund & Cancellation Policy – Skill Station Academy
+        </h1>
 
         <main className="prose prose-blue max-w-none">
           <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">1. Introduction</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              1. Refund Request Submission
+            </h2>
             <p>
-              At SkillStation Academy, we strive to provide high-quality
-              educational content. If you are not satisfied with your purchase,
-              please review our refund policy below.
+              All refund requests must be officially sent via email to{" "}
+              <span className="text-blue-500">
+                skillstation.academy@gmail.com
+              </span>{" "}
+              with relevant details, including transaction proof and the reason
+              for the refund request.
             </p>
           </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2">
-              2. Eligibility for Refund
+              2. Non-Eligibility for Refunds
             </h2>
-            <p>Refund requests must meet the following conditions:</p>
+            <p>
+              Refund requests <strong>will not be considered</strong> under the
+              following circumstances:
+            </p>
             <ul className="list-disc pl-6">
-              <li>Request is made within 7 days of purchase.</li>
+              <li>After the completion of a course or workshop.</li>
               <li>
-                The course or service has not been completed or heavily
-                accessed.
+                After the commencement of an exam for which registration has
+                been completed.
               </li>
-              <li>No certification has been issued for the course.</li>
             </ul>
           </section>
 
           <section className="mb-6">
             <h2 className="text-xl font-semibold mb-2">
-              3. Non-Refundable Items
+              3. Transaction Cancellation Policy
             </h2>
-            <p>The following items are non-refundable:</p>
-            <ul className="list-disc pl-6">
-              <li>Downloaded digital materials.</li>
-              <li>Completed courses with issued certifications.</li>
-              <li>Promotional or discounted purchases.</li>
-              <li>Subscription-based services after the trial period.</li>
-            </ul>
-          </section>
-
-          <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">4. Refund Process</h2>
-            <p>To request a refund, follow these steps:</p>
-            <ul className="list-disc pl-6">
-              <li>
-                Contact our support team at{" "}
-                <span className="text-blue-500">support@skillstation.org</span>.
-              </li>
-              <li>
-                Provide your order details and reason for the refund request.
-              </li>
-              <li>Allow up to 7 business days for review and processing.</li>
-            </ul>
-          </section>
-
-          <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">5. Payment Reversals</h2>
             <p>
-              Approved refunds will be processed via the original payment method
-              within 10 business days. Processing times may vary depending on
-              your bank or payment provider.
+              Upon completing a transaction for course enrollment, workshop
+              registration, or exam booking, you enter into a legally binding
+              agreement with Skill Station Academy. Cancellations may only be
+              allowed if explicitly stated on our platform. Any such
+              cancellations will be subject to the terms mentioned at the time
+              of purchase. Skill Station Academy reserves the right to review
+              and approve cancellation requests at its discretion and may
+              request additional details before processing any cancellation.
             </p>
           </section>
 
           <section className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">6. Contact Us</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              4. Refund Eligibility
+            </h2>
             <p>
-              If you have any questions regarding our refund policy, feel free
-              to contact us at:
+              Refunds will only be considered under the following conditions:
             </p>
-            <p className="text-blue-500">support@skillstation.org</p>
+            <ul className="list-disc pl-6">
+              <li>
+                If the course, workshop, or exam service provided does not match
+                the description mentioned on our platform.
+              </li>
+              <li>
+                If the cancellation request is submitted within{" "}
+                <strong>three days from the date of payment</strong>, unless
+                otherwise specified on the platform.
+              </li>
+            </ul>
+            <p className="mt-3">
+              To initiate a refund claim, users must email us at{" "}
+              <span className="text-blue-500">
+                skillstation.academy@gmail.com
+              </span>
+              , providing a <strong>clear and specific reason</strong> along
+              with supporting proof, if required. Skill Station Academy will
+              review the request and may seek additional information before
+              making a final decision.
+            </p>
           </section>
+
+          <section className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">
+              5. Final Decision on Refunds
+            </h2>
+            <p>
+              Skill Station Academy holds the sole discretion in approving or
+              rejecting any refund requests. Approved refunds will be processed
+              through the original payment method within a reasonable timeframe.
+            </p>
+          </section>
+
+          <p className="mt-6">
+            By making a purchase, you acknowledge and agree to abide by this
+            Refund & Cancellation Policy.
+          </p>
         </main>
       </div>
 

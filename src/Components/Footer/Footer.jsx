@@ -19,13 +19,13 @@ const Footer = () => {
             <p className="text-gray-400 mb-4">Follow us on</p>
             <div className="flex gap-4 mb-8">
               <a
-                href="https://www.linkedin.com/in/elangovan-gopal/"
+                href="https://www.linkedin.com/company/skill-station-academy/"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
               >
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@skillstation-academy"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
               >
                 <i className="fab fa-youtube"></i>

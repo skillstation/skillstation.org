@@ -13,73 +13,72 @@ If you are developing a production application, we recommend using TypeScript an
 
 # SkillStation Landing Page Email Notification Setup
 
-## Setting Up Firebase Functions for Email Notifications
+## Setting Up Email Notifications
+
+The application includes a backend server using Express and Nodemailer to send email notifications when users register for workshops or events.
 
 ### Prerequisites
 
 - Node.js and npm installed
-- Firebase CLI installed (`npm install -g firebase-tools`)
-- Firebase project created and connected to your app
 
-### Step 1: Configure Firebase Functions
+### Project Structure
 
-The project already includes Firebase Functions configuration for email notifications. To set it up:
+The project contains two main parts:
 
-1. Navigate to the functions directory:
+- The React frontend (`src/` directory)
+- The Express email server (`server/` directory)
 
-   ```
-   cd functions
-   ```
+### Running the Application
 
-2. Install dependencies:
+1. **Install frontend dependencies:**
 
    ```
    npm install
    ```
 
-3. Open `functions/index.js` and update the email configuration:
+2. **Start the frontend:**
 
-   - Replace `"your-email@gmail.com"` with your actual Gmail address
-   - Replace `"your-app-password"` with your Google App Password
+   ```
+   npm run dev
+   ```
 
-   > **Note**: To generate an App Password:
-   >
-   > 1. Go to your Google Account
-   > 2. Select Security
-   > 3. Under "Signing in to Google," select 2-Step Verification
-   > 4. At the bottom of the page, select App passwords
-   > 5. Enter a name to help you remember where you'll use the App Password
-   > 6. Select Generate
-   > 7. Copy the App Password (the 16-character code)
+3. **Set up the email server:**
 
-### Step 2: Deploy the Functions
+   ```
+   cd server
+   npm install
+   ```
 
-Deploy the functions to Firebase:
+4. **Configure email credentials:**
+   Create a `.env` file in the `server/` directory with:
 
-```
-firebase login
-firebase deploy --only functions
-```
+   ```
+   EMAIL_USER=your-gmail-email@gmail.com
+   EMAIL_PASS=your-gmail-app-password
+   TO_EMAIL=skillstation.academy@gmail.com
+   PORT=3001
+   ```
 
-### Step 3: Testing
+5. **Start the email server:**
+   ```
+   npm run dev
+   ```
 
-After deployment, test the function by submitting a new workshop registration. The function will:
+> **Important:** You must use a Google App Password, not your regular Gmail password. See the server README for instructions on generating an App Password.
 
-1. Detect the new registration in the "Test" collection
-2. Send an email to code.ie7engineer@gmail.com
-3. Update the document with `emailNotificationSent: true`
+### Testing Email Functionality
 
-### Troubleshooting
+To test if the email system is working:
 
-If emails aren't being sent:
+1. Start both the frontend and the email server
+2. Register for a workshop through the application
+3. Check the console logs for confirmation
+4. Verify that an email was received at the configured target email address
 
-1. Check your Firebase Functions logs in the Firebase Console
-2. Verify your Gmail credentials and App Password
-3. Ensure you've enabled "Less secure app access" or created a proper App Password
-4. Check that your Firebase project has the Blaze plan (required for external API calls)
+### Production Deployment
 
-### Security Notes
+For production:
 
-- Avoid committing your email credentials to Git
-- Consider using Firebase environment variables for sensitive information
-- Update your Firebase security rules to protect your data
+1. Update the API URL in `src/utils/api.js` to point to your production server
+2. Deploy the Express server to a hosting service like Heroku, Render, or Railway
+3. Set up environment variables on your hosting platform

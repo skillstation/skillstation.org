@@ -20,65 +20,10 @@ import {
   limit,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
-
-// Workshop data for the component
-const workshopData = [
-  {
-    id: 1,
-    title: "AskIITian: Learn What it Takes to be an IITian",
-    type: "Workshop",
-    location: "HIVE, VR Mall, Chennai",
-    duration: "1 Day",
-    description:
-      "Get insights from IITians about their journey and learn what it takes to crack IIT.",
-    image: "workshop1.jpg",
-    isHighlight: true,
-  },
-  {
-    id: 2,
-    title: "CodeQuest: Workshop & Hackathon",
-    type: "Workshop, Hackathon",
-    location: "IIT Madras",
-    duration: "2 Days",
-    description:
-      "Join us for an exciting coding workshop followed by a hackathon challenge.",
-    image: "workshop2.jpg",
-  },
-  {
-    id: 3,
-    title: "Choosing the Right Career Path",
-    type: "Workshop",
-    location: "HIVE, VR Mall, Chennai",
-    duration: "1 Day",
-    description:
-      "Career guidance program to help you make informed decisions about your future.",
-    image: "workshop3.jpg",
-  },
-  {
-    id: 4,
-    title: "Scientific Programming for Engineers",
-    type: "7 day Bootcamp",
-    location: "IIT Madras",
-    duration: "7 Days",
-    description:
-      "Intensive bootcamp focused on scientific programming and engineering applications.",
-    image: "workshop4.jpg",
-  },
-  {
-    id: 5,
-    title: "Programming for Web",
-    type: "7 day Bootcamp",
-    location: "IIT Madras",
-    duration: "7 Days",
-    description:
-      "Comprehensive web development bootcamp covering modern technologies.",
-    image: "workshop5.jpg",
-  },
-];
+import { sendRegistrationEmail } from "../../utils/api";
 
 const Tisat = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedWorkshop, setSelectedWorkshop] = useState(null);
   const [registrationType, setRegistrationType] = useState("student");
   const [educationalStatus, setEducationalStatus] = useState("School");
   const [formData, setFormData] = useState({
@@ -105,11 +50,7 @@ const Tisat = () => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [registrationId, setRegistrationId] = useState("");
 
-  const handleCardClick = (workshopName) => {
-    const workshop =
-      workshopData.find((w) => w.title.includes(workshopName)) ||
-      workshopData[0];
-    setSelectedWorkshop(workshop);
+  const handleCardClick = () => {
     setShowModal(true);
   };
 
@@ -220,6 +161,20 @@ const Tisat = () => {
       await addDoc(collection(db, "NotificationsQueue"), notificationData);
       console.log("Notification queued for email processing");
 
+      // Send email using our Nodemailer server
+      try {
+        const emailResponse = await sendRegistrationEmail({
+          formData,
+          registrationType,
+          registrationId: generatedId,
+          educationalStatus,
+        });
+        console.log("Email sent successfully:", emailResponse);
+      } catch (emailError) {
+        console.error("Error sending email:", emailError);
+        // Don't throw here to ensure registration process continues
+      }
+
       // Set registration ID and show success dialog
       setRegistrationId(generatedId);
       setShowSuccessDialog(true);
@@ -279,451 +234,171 @@ const Tisat = () => {
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
               Download Program Brochure
             </button>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+            <button
+              onClick={() => handleCardClick()}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer"
+            >
               Apply for TiSAT
             </button>
           </div>
         </div>
       </div>
 
-      {/* Proper spacing for mobile content */}
-      <div className=" ">
-        {/* Mobile View (Only shows when screen is small) */}
-        <div className="md:hidden">
-          <div className="p-4">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
-              Our Workshops
-            </h1>
-
-            {/* Mobile Workshop Cards */}
-            <div className="space-y-4">
-              {/* AskIITian Mobile Card */}
-              <div className="bg-white rounded-lg p-4 shadow-md border border-gray-100">
-                <div className="flex items-center mb-3">
-                  <div className="bg-blue-50 p-2 rounded-lg mr-3">
-                    <FaGraduationCap className="text-xl text-blue-600" />
-                  </div>
-                  <span className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded-full">
-                    Workshop
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold mb-1">AskIITian</h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Learn What it Takes to be an IITian
-                </p>
-                <div className="text-sm text-gray-500">
-                  <p className="flex items-center mb-1">
-                    <FaMapMarkerAlt className="mr-2" /> HIVE, VR Mall, Chennai
-                  </p>
-                  <p className="flex items-center">
-                    <FaCalendar className="mr-2" /> 12.04.2025
-                  </p>
-                </div>
-                <div className="flex justify-between items-center mt-3">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const shareUrl = `${window.location.origin}/workshops/askiitians`;
-                      navigator.clipboard.writeText(shareUrl);
-                      alert(
-                        "Registration link copied! Share it on WhatsApp or any platform."
-                      );
-                    }}
-                    className="text-blue-600 text-xs flex items-center hover:underline"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-3 w-3 mr-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                      />
-                    </svg>
-                    Share Link
-                  </button>
-                  <button
-                    onClick={() => handleCardClick("AskIITian")}
-                    className="bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium"
-                  >
-                    Register Now
-                  </button>
-                </div>
-              </div>
-
-              {/* Other Workshop Mobile Cards */}
-              {["CodeQuest", "Career Guidance", "Scientific Programming"].map(
-                (workshop) => (
-                  <div
-                    key={workshop}
-                    className="bg-white rounded-lg p-4 shadow-md border border-gray-100"
-                  >
-                    <div className="flex items-center mb-3">
-                      {workshop === "CodeQuest" && (
-                        <div className="bg-purple-50 p-2 rounded-lg mr-3">
-                          <FaLaptopCode className="text-xl text-purple-600" />
-                        </div>
-                      )}
-                      {workshop === "Career Guidance" && (
-                        <div className="bg-indigo-50 p-2 rounded-lg mr-3">
-                          <FaLightbulb className="text-xl text-indigo-600" />
-                        </div>
-                      )}
-                      {workshop === "Scientific Programming" && (
-                        <div className="bg-blue-50 p-2 rounded-lg mr-3">
-                          <FaCode className="text-xl text-blue-600" />
-                        </div>
-                      )}
-                      <span className="bg-gray-100 text-gray-600 text-sm px-2 py-1 rounded-full">
-                        Coming Soon
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold mb-1">{workshop}</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      {workshop === "CodeQuest" && "Workshop & Hackathon"}
-                      {workshop === "Career Guidance" &&
-                        "Choose the Right Career Path"}
-                      {workshop === "Scientific Programming" && "For Engineers"}
-                    </p>
-                    <div className="text-sm text-gray-500">
-                      <p className="flex items-center mb-1">
-                        <FaMapMarkerAlt className="mr-2" />
-                        {workshop === "Career Guidance"
-                          ? "HIVE, VR Mall, Chennai"
-                          : "IIT Madras"}
-                      </p>
-                      <p className="flex items-center">
-                        <FaCalendar className="mr-2" /> Coming Soon
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mt-3">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const workshopId = workshop
-                            .toLowerCase()
-                            .replace(/\s+/g, "");
-                          const shareUrl = `${window.location.origin}/workshops/${workshopId}`;
-                          navigator.clipboard.writeText(shareUrl);
-                          alert(
-                            "Registration link copied! Share it on WhatsApp or any platform."
-                          );
-                        }}
-                        className={`text-xs flex items-center hover:underline ${
-                          workshop === "CodeQuest"
-                            ? "text-purple-600"
-                            : workshop === "Career Guidance"
-                            ? "text-indigo-600"
-                            : "text-blue-600"
-                        }`}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-3 w-3 mr-1"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                          />
-                        </svg>
-                        Share Link
-                      </button>
-                      <div className="opacity-50">
-                        <span className="bg-gray-200 text-gray-500 py-2 px-4 rounded-lg text-sm font-medium">
-                          Coming Soon
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Desktop View (Hidden on mobile) */}
-      <div className="hidden md:block">
-        {/* Your existing desktop layout code */}
-        <div className="relative">
-          {/* Enhanced Blue Background with Gradient */}
-          <div className="bg-gradient-to-br from-[#0041F5] to-[#0066FF] w-full h-[500px] relative overflow-hidden">
-            {/* Abstract Background Shapes */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-              <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
-            </div>
-
-            {/* Replace city selector with motivational quote section */}
-            <div className="max-w-7xl mx-auto px-4 pt-12">
-              <div className="text-center text-white space-y-4">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
-                  Your Journey to Success
-                  <br />
-                  Begins with a Single Step
-                </h2>
-                <p className="text-lg md:text-xl lg:text-2xl text-white/80 max-w-2xl mx-auto px-4">
-                  Whether you're in 11th grade dreaming of IIT or a college
-                  student aiming for excellence, we're here to guide your path
-                  to success.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced White Rectangle Container */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-full max-w-7xl">
-            <div className="mx-4 bg-white rounded-2xl shadow-2xl p-8 backdrop-blur-lg border border-gray-100">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                {/* AskIITian Card */}
-                <div
-                  className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden"
-                  onClick={() => handleCardClick("AskIITian")}
-                >
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaGraduationCap className="text-3xl text-blue-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    AskIITian
-                  </h3>
-                  <p className="text-md text-gray-500">
-                    Learn What it Takes to be an IITian
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    HIVE, VR Mall, Chennai
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date & Time: Sunday 27th April from 4 PM to 6 PM (Live
-                    Webinar also available via Skype Online)
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transform transition-transform duration-300 hover:scale-105">
-                      Register Here
-                    </button>
-                  </div>
-                </div>
-
-                {/* CodeQuest Card */}
-                <div className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaLaptopCode className="text-3xl text-purple-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-purple-600 font-semibold bg-purple-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop, Hackathon
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    CodeQuest
-                  </h3>
-                  <p className="text-md text-gray-500">Workshop & Hackathon</p>
-                  <p className="text-xm text-gray-400 mt-2">IIT Madras</p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-
-                {/* Career Guidance Card */}
-                <div className="group bg-white rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 w-20 h-20 rounded-2xl flex items-center justify-center  mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaLightbulb className="text-3xl text-indigo-600 group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-indigo-600 font-semibold bg-indigo-50 px-2 py-1 rounded-full mb-2 inline-block">
-                    Workshop
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-800 mb-1">
-                    Career Guidance
-                  </h3>
-                  <p className="text-md text-gray-500">
-                    Choose the Right Career Path
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    HIVE, VR Mall, Chennai
-                  </p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-
-                {/* Scientific Programming Card - Now in Blue */}
-                <div className="group bg-gradient-to-br from-[#0041F5] to-[#0066FF] rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative overflow-hidden">
-                  <div className="bg-white/10 w-20 h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 backdrop-blur-lg">
-                    <FaCode className="text-3xl text-white group-hover:rotate-12 transition-transform" />
-                  </div>
-                  <span className="text-md text-white font-semibold bg-white/20 px-2 py-1 rounded-full mb-2 inline-block">
-                    7 day Bootcamp
-                  </span>
-                  <h3 className="text-xl font-bold text-white mb-1">
-                    Scientific Programming
-                  </h3>
-                  <p className="text-md text-white/80">For Engineers</p>
-                  <p className="text-sm text-white/60 mt-2">IIT Madras</p>
-                  <p className="text-sm text-white/60 mt-2">
-                    Date: coming soon
-                  </p>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-white text-xl font-bold">
-                      Coming Soon
-                    </span>
-                    <span className="text-white/80 text-sm mt-2">
-                      Stay Tuned!
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main content area - Adjusting padding for both mobile and desktop */}
-      <div className="max-w-7xl mx-auto px-4 pt-8 md:pt-[500px] lg:pt-96 text-gray-800">
-        {/* Workshop Introduction */}
-        <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            Upcoming Workshop: AskIITian Workshop
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8">
-            Learn What it Takes to be an IITian - A comprehensive workshop
-            designed to guide aspiring IITians on their journey to success.
-          </p>
+      <div className="max-w-7xl mx-auto px-4 pt-8 text-gray-800">
+        {/* About TiSAT-2025 */}
+        <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
+          <div className="bg-blue-600 p-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              About TiSAT-2025
+            </h2>
+          </div>
+          <div className="p-4 md:p-6">
+            <p className="text-gray-600">
+              The TiSAT (Talent Insight and Skill Assessment Test) 2025 is an
+              initiative by Skill Station Academy aimed at identifying and
+              nurturing young scientists, engineers, and technologists. Through
+              this program, students gain access to mentorship, resources, and a
+              platform to showcase their passion for science and technology.
+              Additionally, they are mentored to prepare for IITJEE to join IIT
+              and pursue education in the field of science and engineering.
+            </p>
+          </div>
         </div>
 
-        {/* Workshop Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-8">
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">
-                Workshop Highlights
-              </h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Expert guidance from successful IITians
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Interactive problem-solving sessions
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Study strategies and time management tips
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Personal mentoring opportunities
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">
-                Who Should Attend?
-              </h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Students from Class XI and XII
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Aspiring IIT-JEE candidates
-                </li>
-                <li className="flex items-center">
-                  <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                  Parents seeking guidance for their children
-                </li>
-              </ul>
-            </div>
+        {/* Young Scientist Fellowship Program */}
+        <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
+          <div className="bg-blue-600 p-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              Young Scientist Fellowship Program
+            </h2>
           </div>
+          <div className="p-4 md:p-6">
+            <p className="text-gray-600">
+              The Young Scientist Fellowship Program provides mentorship,
+              funding, and resources to cultivate the curiosity and interest to
+              learn science and mathematics in an interesting and engaging way
+              directly from IIT alumni and students. Selected students will be
+              given opportunities to pursue other skill development courses
+              relevant to industry needs, taught by professional experts.
+            </p>
+          </div>
+        </div>
 
-          <div className="space-y-6">
-            <div className="bg-gray-50 p-6 rounded-xl">
-              <h3 className="text-2xl font-semibold mb-4">Workshop Details</h3>
-              <div className="space-y-4 text-gray-600">
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Date:</span>
-                  <span>Sunday 27th April from 4 PM to 6 PM</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Venue:</span>
-                  <span>HIVE, VR Mall, Chennai</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Duration:</span>
-                  <span>One Day Intensive Workshop</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="font-semibold w-24">Fee:</span>
-                  <span>Rs. 500</span>
-                </div>
+        {/* Our Approach - New Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-white p-5 rounded-lg shadow-sm">
+            <div className="flex items-center mb-3">
+              <div className="bg-blue-100 p-3 rounded-full mr-3">
+                <FaGraduationCap className="text-blue-600 text-xl" />
               </div>
+              <h3 className="text-lg font-bold">Expert Mentorship</h3>
             </div>
+            <p className="text-gray-600">
+              Learn directly from IIT alumni and industry professionals who
+              guide you through your educational journey.
+            </p>
+          </div>
 
-            <div className="bg-blue-50 p-6 rounded-xl">
-              <h3 className="text-2xl font-semibold mb-4">
-                Registration Open!
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Limited seats available. Register now to secure your spot in
-                this transformative workshop.
-              </p>
-              <button
-                onClick={() => setShowModal(true)}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
-              >
-                Register Now
-              </button>
+          <div className="bg-white p-5 rounded-lg shadow-sm">
+            <div className="flex items-center mb-3">
+              <div className="bg-blue-100 p-3 rounded-full mr-3">
+                <FaLightbulb className="text-blue-600 text-xl" />
+              </div>
+              <h3 className="text-lg font-bold">Innovative Learning</h3>
             </div>
+            <p className="text-gray-600">
+              Experience science and mathematics through engaging, interactive
+              methods that make complex concepts easy to understand.
+            </p>
+          </div>
+
+          <div className="bg-white p-5 rounded-lg shadow-sm">
+            <div className="flex items-center mb-3">
+              <div className="bg-blue-100 p-3 rounded-full mr-3">
+                <FaLaptopCode className="text-blue-600 text-xl" />
+              </div>
+              <h3 className="text-lg font-bold">Skill Development</h3>
+            </div>
+            <p className="text-gray-600">
+              Gain practical skills relevant to industry needs through
+              specialized courses and hands-on projects.
+            </p>
           </div>
         </div>
 
-        {/* Note about other workshops */}
-        <div className="mt-16 p-6 bg-gray-50 rounded-xl">
-          <h3 className="text-2xl font-semibold mb-4">
-            More Workshops Coming Soon
-          </h3>
-          <p className="text-gray-600">
-            Stay tuned for our upcoming workshops including CodeQuest, Career
-            Guidance Programme, Scientific Programming for Engineers, and
-            Programming for Web. Subscribe to our newsletter to get notified
-            when registrations open.
+        {/* Important Dates */}
+        <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
+          <div className="bg-blue-600 p-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              Important Dates
+            </h2>
+          </div>
+          <div className="p-4 md:p-6">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b">
+                  <th className="p-3 text-gray-800 font-semibold">Event</th>
+                  <th className="p-3 text-gray-800 font-semibold">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className="p-3 flex items-center">
+                    <FaCalendar className="text-blue-600 mr-2" />
+                    Application Start Date
+                  </td>
+                  <td className="p-3 text-blue-600 font-medium">
+                    Will be shared via email
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3 flex items-center">
+                    <FaCalendar className="text-blue-600 mr-2" />
+                    Application Deadline
+                  </td>
+                  <td className="p-3 text-blue-600 font-medium">
+                    Will be shared via email
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3 flex items-center">
+                    <FaCalendar className="text-blue-600 mr-2" />
+                    Results Announcement
+                  </td>
+                  <td className="p-3 text-blue-600 font-medium">
+                    Will be shared via email
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3 flex items-center">
+                    <FaCalendar className="text-blue-600 mr-2" />
+                    Classes Commence
+                  </td>
+                  <td className="p-3 text-blue-600 font-medium">
+                    Will be shared via email
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-blue-600 rounded-lg p-6 text-center mb-8">
+          <h2 className="text-2xl font-bold text-white mb-3">
+            Ready to Begin Your Journey?
+          </h2>
+          <p className="text-white mb-5 max-w-3xl mx-auto">
+            Join TiSAT-2025 and embark on a transformative educational
+            experience with guidance from IIT mentors.
           </p>
+          <button
+            onClick={() => handleCardClick()}
+            className="bg-white text-blue-600 hover:bg-gray-100 font-medium px-6 py-2 rounded-lg transition-colors"
+          >
+            Apply Now
+          </button>
         </div>
       </div>
 
@@ -734,7 +409,7 @@ const Tisat = () => {
             <div className="p-4 md:p-6">
               <div className="flex justify-between items-center mb-4 md:mb-6">
                 <h2 className="text-xl md:text-2xl font-bold">
-                  Register for {selectedWorkshop?.title}
+                  Register for TiSAT Exam
                 </h2>
                 <button
                   onClick={() => setShowModal(false)}
