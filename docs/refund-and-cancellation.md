@@ -1,3 +1,24 @@
-Upon completing a Transaction, you are entering into a legally binding and enforceable agreement with us to purchase the product and/or service. After this point the User may cancel the Transaction unless it has been specifically provided for on the Platform. In which case, the cancellation will be subject to the terms mentioned on the Platform. We shall retain the discretion in approving any cancellation requests and we may ask for additional details before approving any requests.
+# Refund & Cancellation Policy – Skill Station Academy  
 
-Once you have received the product and/or service, the only event where you can request for a replacement or a return and a refund is if the product and/or service does not match the description as mentioned on the Platform. Any request for refund must be submitted within three days from the date of the Transaction or such number of days prescribed on the Platform, which shall in no event be less than three days. A User may submit a claim for a refund for a purchase made, by raising a ticket here or contacting us on seller+5c18cd088b0540779ad3dc750899b49d@instamojo.com and providing a clear and specific reason for the refund request, including the exact terms that have been violated, along with any proof, if required. Whether a refund will be provided will be determined by us, and we may ask for additional details before approving any requests.
+## 1. **Refund Request Submission**  
+All refund requests must be officially sent via email to **skillstation.academy@gmail.com** with relevant details, including transaction proof and the reason for the refund request.  
+
+## 2. **Non-Eligibility for Refunds**  
+Refund requests **will not be considered** under the following circumstances:  
+- After the completion of a course or workshop.  
+- After the commencement of an exam for which registration has been completed.  
+
+## 3. **Transaction Cancellation Policy**  
+Upon completing a transaction for course enrollment, workshop registration, or exam booking, you enter into a legally binding agreement with Skill Station Academy. Cancellations may only be allowed if explicitly stated on our platform. Any such cancellations will be subject to the terms mentioned at the time of purchase. Skill Station Academy reserves the right to review and approve cancellation requests at its discretion and may request additional details before processing any cancellation.  
+
+## 4. **Refund Eligibility**  
+Refunds will only be considered under the following conditions:  
+- If the course, workshop, or exam service provided does not match the description mentioned on our platform.  
+- If the cancellation request is submitted within **three days from the date of payment**, unless otherwise specified on the platform.  
+
+To initiate a refund claim, users must email us at **skillstation.academy@gmail.com**, providing a **clear and specific reason** along with supporting proof, if required. Skill Station Academy will review the request and may seek additional information before making a final decision.  
+
+## 5. **Final Decision on Refunds**  
+Skill Station Academy holds the sole discretion in approving or rejecting any refund requests. Approved refunds will be processed through the original payment method within a reasonable timeframe.  
+
+By making a purchase, you acknowledge and agree to abide by this Refund & Cancellation Policy.  
