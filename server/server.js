@@ -22,12 +22,19 @@ const transporter = nodemailer.createTransport({
 // API endpoint for sending emails
 app.post("/api/send-email", async (req, res) => {
   try {
-    const { formData, registrationType, registrationId, educationalStatus } =
-      req.body;
+    const {
+      formData,
+      registrationType,
+      registrationId,
+      educationalStatus,
+      workshopName,
+    } = req.body;
 
     // Create HTML content based on registration type
     let detailsHtml = `
-      <h2>New Registration for TiSAT-2025</h2>
+      <h2>New Registration${
+        workshopName ? ` for ${workshopName}` : " for TiSAT-2025"
+      }</h2>
       <p><strong>Registration ID:</strong> ${registrationId}</p>
       <p><strong>Registration Type:</strong> ${registrationType}</p>
       <p><strong>Full Name:</strong> ${formData.fullName}</p>
@@ -58,7 +65,9 @@ app.post("/api/send-email", async (req, res) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.TO_EMAIL,
-      subject: `New TiSAT Registration: ${formData.fullName} (${registrationId})`,
+      subject: `New Registration: ${formData.fullName} (${registrationId})${
+        workshopName ? ` - ${workshopName}` : " - TiSAT"
+      }`,
       html: detailsHtml,
     };
 

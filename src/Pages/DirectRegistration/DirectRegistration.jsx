@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { db } from "../../firebaseConfig";
+import { sendRegistrationEmail } from "../../utils/api";
 
 // Workshop data mapping for direct links
 const workshopMap = {
@@ -221,6 +222,21 @@ const DirectRegistration = () => {
       // Save notification to a separate collection for email processing
       await addDoc(collection(db, "NotificationsQueue"), notificationData);
       console.log("Notification queued for email processing");
+
+      // Send email using our Nodemailer server
+      try {
+        const emailResponse = await sendRegistrationEmail({
+          formData,
+          registrationType,
+          registrationId: generatedId,
+          educationalStatus,
+          workshopName: selectedWorkshop.title,
+        });
+        console.log("Email sent successfully:", emailResponse);
+      } catch (emailError) {
+        console.error("Error sending email:", emailError);
+        // Don't throw here to ensure registration process continues
+      }
 
       // Set registration ID and show success dialog
       setRegistrationId(generatedId);
