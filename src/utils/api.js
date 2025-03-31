@@ -1,6 +1,6 @@
 // Define API base URL based on environment
 const API_BASE_URL = import.meta.env.PROD
-  ? "https://skillstation.org/" // Change this to your production server URL
+  ? "https://skillstation.org" // Change this to your production server URL
   : "http://localhost:3001";
 
 // API endpoints
