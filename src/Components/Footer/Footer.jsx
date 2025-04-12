@@ -53,7 +53,7 @@ const Footer = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-[#0041F5] text-white px-6 h-12 rounded-lg hover:bg-blue-600 transition-colors whitespace-nowrap mt-2 mb-2"
+                  className="bg-[#0A57FF] text-white px-6 h-12 rounded-lg hover:bg-[#0041F5] transition-colors whitespace-nowrap mt-2 mb-2 font-medium"
                 >
                   Subscribe
                 </button>
@@ -100,7 +100,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-gray-300 hover:text-white transition-colors"
                 >
                   FAQs
                 </Link>

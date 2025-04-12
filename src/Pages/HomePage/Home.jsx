@@ -260,9 +260,9 @@ const Home = () => {
                   IIT-JEE
                 </div>
                 <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-white mb-3">
                     Comprehensive IIT-JEE Mentorship by IITians
-                  </h3>
+                  </h2>
                   <div className="mt-8 inline-flex items-center justify-center bg-white/20 rounded-full w-12 h-12">
                     <i className="fas fa-arrow-right text-white"></i>
                   </div>
@@ -275,9 +275,9 @@ const Home = () => {
                   GATE
                 </div>
                 <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-white mb-3">
                     Expert GATE Coaching with Structured Learning Path
-                  </h3>
+                  </h2>
                   <div className="mt-8 inline-flex items-center justify-center bg-white/20 rounded-full w-12 h-12">
                     <i className="fas fa-arrow-right text-white"></i>
                   </div>
@@ -290,9 +290,9 @@ const Home = () => {
                   Programming
                 </div>
                 <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-white mb-3">
                     Advanced Programming & AI Technology Training
-                  </h3>
+                  </h2>
                   <div className="mt-8 inline-flex items-center justify-center bg-white/20 rounded-full w-12 h-12">
                     <i className="fas fa-arrow-right text-white"></i>
                   </div>
@@ -305,9 +305,9 @@ const Home = () => {
                   Assessment
                 </div>
                 <div className="mt-12">
-                  <h3 className="text-2xl font-bold text-white mb-3">
+                  <h2 className="text-2xl font-bold text-white mb-3">
                     TiSAT: Talent Insight & Skill Assessment Test
-                  </h3>
+                  </h2>
                   <div className="mt-8 inline-flex items-center justify-center bg-white/20 rounded-full w-12 h-12">
                     <i className="fas fa-arrow-right text-white"></i>
                   </div>
