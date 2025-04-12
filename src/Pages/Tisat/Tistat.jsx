@@ -215,7 +215,7 @@ const Tisat = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[80px]">
+    <div className="min-h-screen bg-gray-50 pt-[120px]">
       <Navbar />
 
       {/* TiSAT Header - Making mobile responsive */}
@@ -228,15 +228,15 @@ const Tisat = () => {
             Talent Insight and Skill Assessment Test
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer download-official-circular">
               Download Official Circular
             </button>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer download-program-brochure">
               Download Program Brochure
             </button>
             <button
               onClick={() => handleCardClick()}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm md:text-base cursor-pointer apply-for-tisat"
             >
               Apply for TiSAT
             </button>
@@ -249,9 +249,9 @@ const Tisat = () => {
         {/* About TiSAT-2025 */}
         <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
           <div className="bg-blue-600 p-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
               About TiSAT-2025
-            </h2>
+            </h1>
           </div>
           <div className="p-4 md:p-6">
             <p className="text-gray-600">
@@ -269,9 +269,9 @@ const Tisat = () => {
         {/* Young Scientist Fellowship Program */}
         <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
           <div className="bg-blue-600 p-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
               Young Scientist Fellowship Program
-            </h2>
+            </h1>
           </div>
           <div className="p-4 md:p-6">
             <p className="text-gray-600">
@@ -330,9 +330,9 @@ const Tisat = () => {
         {/* Important Dates */}
         <div className="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
           <div className="bg-blue-600 p-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-white">
               Important Dates
-            </h2>
+            </h1>
           </div>
           <div className="p-4 md:p-6">
             <table className="w-full text-left border-collapse">
@@ -386,9 +386,9 @@ const Tisat = () => {
 
         {/* Call to Action */}
         <div className="bg-blue-600 rounded-lg p-6 text-center mb-8">
-          <h2 className="text-2xl font-bold text-white mb-3">
+          <h1 className="text-2xl font-bold text-white mb-3">
             Ready to Begin Your Journey?
-          </h2>
+          </h1>
           <p className="text-white mb-5 max-w-3xl mx-auto">
             Join TiSAT-2025 and embark on a transformative educational
             experience with guidance from IIT mentors.

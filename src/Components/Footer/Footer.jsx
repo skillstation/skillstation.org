@@ -21,18 +21,21 @@ const Footer = () => {
               <a
                 href="https://www.linkedin.com/company/skill-station-academy/"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                aria-label="Visit our LinkedIn page"
               >
                 <i className="fab fa-linkedin-in"></i>
               </a>
               <a
                 href="https://www.youtube.com/@skillstation-academy"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                aria-label="Visit our YouTube channel"
               >
                 <i className="fab fa-youtube"></i>
               </a>
               <a
                 href="https://wa.me/+917305959397"
                 className="bg-white/10 p-3 rounded-full hover:bg-white/20 transition-colors"
+                aria-label="Chat with us on WhatsApp"
               >
                 <i className="fab fa-whatsapp"></i>
               </a>
@@ -46,11 +49,11 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 border border-gray-700 bg-black/50 h-12 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-white"
+                  className="flex-1 border border-gray-700 bg-black/50 mt-2 h-12 px-4 py-3 rounded-lg text-sm focus:outline-none focus:border-blue-500 text-white"
                 />
                 <button
                   type="submit"
-                  className="bg-[#0041F5] text-white px-6 h-12 rounded-lg hover:bg-blue-600 transition-colors whitespace-nowrap"
+                  className="bg-[#0041F5] text-white px-6 h-12 rounded-lg hover:bg-blue-600 transition-colors whitespace-nowrap mt-2 mb-2"
                 >
                   Subscribe
                 </button>

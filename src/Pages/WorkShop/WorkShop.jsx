@@ -273,7 +273,7 @@ const WorkShop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-[80px]">
+    <div className="min-h-screen bg-gray-50 pt-[120px]">
       <Navbar />
 
       {/* Mobile View (Only shows when screen is small) */}
@@ -373,11 +373,11 @@ const WorkShop = () => {
             {/* Replace city selector with motivational quote section */}
             <div className="max-w-7xl mx-auto px-4 pt-12">
               <div className="text-center text-white space-y-4">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight px-4">
                   Your Journey to Success
                   <br />
                   Begins with a Single Step
-                </h2>
+                </h1>
                 <p className="text-lg md:text-xl  text-white/80 max-w-2xl mx-auto px-4">
                   Whether you're in 11th grade dreaming of IIT or a college
                   student aiming for excellence, we're here to guide your path
@@ -418,7 +418,7 @@ const WorkShop = () => {
 
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transform transition-transform duration-300 hover:scale-105">
+                    <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transform transition-transform duration-300 hover:scale-105 register-here-button">
                       Register Here
                     </button>
                   </div>
@@ -520,9 +520,9 @@ const WorkShop = () => {
       <div className="max-w-7xl mx-auto px-4 mt-20 md:pt-96 lg:pt-72 text-gray-800">
         {/* Workshop Introduction */}
         <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6">
             Upcoming Workshop: AskIITian Workshop
-          </h2>
+          </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8">
             Learn What it Takes to be an IITian - A comprehensive workshop
             designed to guide aspiring IITians on their journey to success.
