@@ -11,6 +11,23 @@
   white-space: nowrap;
 }
 
+/* Mobile devices - maintain 3s speed but adjust display */
+@media (max-width: 768px) {
+  .marquee-content {
+    animation: marquee 15s linear infinite;
+    width: 200%; /* Adjusted to show full text */
+  }
+
+  .marquee-container {
+    overflow-x: hidden;
+  }
+
+  .marquee-content span {
+    margin-right: 30px; /* Reduced margin for mobile */
+    font-size: 14px; /* Slightly smaller font for mobile */
+  }
+}
+
 .marquee-content span {
   margin-right: 50px;
   color: white;

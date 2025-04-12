@@ -210,7 +210,7 @@ const Home = () => {
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`h-3 w-3 rounded-full transition ${
+                className={`h-3 w-3 rounded-full transition transition-button ${
                   currentSlide === index
                     ? "bg-white scale-125"
                     : "bg-white/50 hover:bg-white/75"
