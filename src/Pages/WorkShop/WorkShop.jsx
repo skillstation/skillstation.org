@@ -201,15 +201,6 @@ const WorkShop = () => {
       const docRef = await addDoc(collection(db, "Test"), registrationData);
       console.log("Registration successful with ID: ", docRef.id);
 
-      // Trigger Google Ads conversion tracking
-      if (window.gtag) {
-        window.gtag("event", "conversion", {
-          send_to: "AW-17009600982/avxdCJH9q7kaENbT564_",
-          value: 1.0,
-          currency: "INR",
-        });
-      }
-
       // Create notification for email alerts
       const notificationData = {
         registrationId: generatedId,
@@ -422,7 +413,7 @@ const WorkShop = () => {
                   </p>
                   <p className="text-sm text-gray-400 mt-2">
                     Date & Time: Sunday 27th April from 4 PM to 6 PM (Live
-                    Webinar also available via Skype Online)
+                    Webinar also available via Skype Online)
                   </p>
 
                   {/* Hover Overlay */}
