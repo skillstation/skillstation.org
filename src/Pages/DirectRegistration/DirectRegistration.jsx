@@ -25,7 +25,7 @@ const workshopMap = {
     duration: "1 Day",
     description:
       "Get insights from IITians about their journey and learn what it takes to crack IIT.",
-    date: "Sunday 27th April from 4 PM to 6 PM",
+    date: "Saturday 3rd May from 4 PM to 6 PM",
     image: "workshop1.jpg",
   },
   codequest: {
