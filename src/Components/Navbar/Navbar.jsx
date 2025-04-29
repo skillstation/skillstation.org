@@ -91,6 +91,9 @@ const Navbar = () => {
             >
               Our Mentor
             </Link>
+            <Link to="/downloads" className="hover:text-[#0041F5] duration-300">
+              Download Worksheet
+            </Link>
           </div>
 
           {/* Desktop Get in Touch button */}
@@ -155,6 +158,13 @@ const Navbar = () => {
               >
                 Our Mentor
               </a>
+              <Link
+                to="/downloads"
+                className="text-white text-2xl font-bold"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Download Worksheet
+              </Link>
               <a
                 href="https://wa.me/+917305959397"
                 className="bg-white text-[#0A57FF] px-6 py-3 rounded-md text-xl font-bold mt-4"

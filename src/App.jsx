@@ -8,7 +8,7 @@ import DirectRegistration from "./Pages/DirectRegistration/DirectRegistration";
 import Privacy from "./Pages/Agreement/Privacy";
 import TermsAndCondition from "./Pages/Agreement/TermsAndCondition";
 import Refund from "./Pages/Agreement/Refund";
-
+import DownloadsEmbed from "./Pages/Downloads/DownloadsEmbed";
 // ScrollToTop component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -36,6 +36,7 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
           <Route path="/refund" element={<Refund />} />
+          <Route path="/downloads" element={<DownloadsEmbed />} />
         </Routes>
       </Router>
     </div>
