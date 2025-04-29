@@ -300,8 +300,8 @@ const WorkShop = () => {
                   <FaMapMarkerAlt className="mr-2" /> HIVE, VR Mall, Chennai
                 </p>
                 <p className="flex items-center">
-                  <FaCalendar className="mr-2" /> Saturday 3rd May from 4 PM to
-                  6 PM (Live Webinar also available via Skype Online)
+                  <FaCalendar className="mr-2" /> Saturday 3rd May from 5 PM to
+                  7 PM (Live Webinar also available via Skype Online)
                 </p>
               </div>
               <button
@@ -412,7 +412,7 @@ const WorkShop = () => {
                     HIVE, VR Mall, Chennai
                   </p>
                   <p className="text-sm text-gray-400 mt-2">
-                    Date & Time: Saturday 3rd May from 4 PM to 6 PM (Live
+                    Date & Time: Saturday 3rd May from 5 PM to 7 PM (Live
                     Webinar also available via Skype Online)
                   </p>
 
@@ -583,7 +583,7 @@ const WorkShop = () => {
               <div className="space-y-4 text-gray-600">
                 <div className="flex items-center">
                   <span className="font-semibold w-24">Date:</span>
-                  <span>Saturday 3rd May from 4 PM to 6 PM</span>
+                  <span>Saturday 3rd May from 5 PM to 7 PM</span>
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold w-24">Venue:</span>
