@@ -1,133 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Station Academy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: #f0f4ff;
-            color: #003366;
-            padding: 10px 20px;
-            text-align: center;
-            position: relative;
-        }
-        header img {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            width: 70px;
-            height: 70px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        #announcement {
-            background-color: #fff9e6;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        #programmes-offered {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .program-box {
-            background: #f0f8ff;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #ccc;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        h2 {
-            color: #003366;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background: #f4f4f4;
-            color: #555;
-            border-top: 1px solid #ddd;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Station Academy</title>
+
+  <!-- SEO Meta -->
+  <meta name="description" content="Skill Station Academy – IIT Madras alumni-led non-profit institute offering JEE, GATE, Foundation Maths, and Engineering Mathematics programs." />
+  <meta name="keywords" content="Skill Station Academy, JEE Coaching, GATE Maths, Foundation Mathematics, IIT JEE, Engineering Mathematics" />
+
+  <style>
+    :root {
+      --primary-blue: #0d47a1;
+      --light-blue: #e3f2fd;
+      --accent-blue: #1976d2;
+      --text-dark: #1a1a1a;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--light-blue);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--primary-blue);
+      padding: 12px 20px;
+    }
+
+    nav .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #e3f2fd;
+      margin-left: 18px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* HERO */
+    header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+      color: #fff;
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+    }
+
+    header h2 {
+      margin: 15px 0;
+      font-weight: 400;
+      font-size: 1.4rem;
+    }
+
+    header p {
+      max-width: 720px;
+      margin: 20px auto;
+      font-size: 1.1rem;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary-blue);
+      padding: 14px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .hero-btn:hover {
+      background: #e3f2fd;
+    }
+
+    /* UNDER DEVELOPMENT BOX */
+    .dev-note {
+      background: #ffffff;
+      max-width: 900px;
+      margin: -40px auto 30px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .dev-note strong {
+      color: var(--primary-blue);
+      font-size: 1.2rem;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    section {
+      background: var(--card-bg);
+      margin-bottom: 25px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    section h3 {
+      color: var(--primary-blue);
+      margin-top: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary-blue);
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #bbdefb;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* POPUP OVERLAY */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-box {
+      background: #fff;
+      padding: 30px;
+      max-width: 400px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    .popup-box h3 {
+      color: var(--primary-blue);
+      margin-top: 0;
+    }
+
+    .popup-btn {
+      display: inline-block;
+      margin: 15px 10px 0;
+      padding: 12px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .popup-request {
+      background: var(--primary-blue);
+      color: #fff;
+    }
+
+    .popup-skip {
+      background: #ccc;
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      header h2 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1>Skill Station Academy</h1>
-        <img src="assets/ss-logo.png" alt="Skill Station Logo">
-    </header>
-    <div class="container">
-        <section id="special-announcement">
-            <h2>Special Announcement</h2>
-            <p>For announcements related to TiSAT and Young Scientist Fellowship programme, visit <a href="https://skillstation.org/TiSAT-2025" target="_blank">skillstation.org/TiSAT-2025</a>.</p>
-        </section>
-        <section id="announcement">
-            <h2>Announcement</h2>
-            <p>This page is currently being upgraded. Please visit us after some time.</p>
-        </section>
-        <section id="about-us">
-            <h2>About Us</h2>
-            <p>Skill Station Academy is a non-profit educational and skill training institution started by dedicated volunteers from IIT Madras. We are committed to empowering and nurturing young minds with high-quality and affordable education, providing them with industry-relevant skills to achieve their career goals.</p>
-            <p>🚀 Join Skill Station, where we deliver cutting-edge education and skill training! Our goal is to prepare learners for the ever-evolving job market by offering scholarships of up to 100% for deserving students. Let’s build a brighter future together! 🌟</p>
-        </section>
-        <section id="programmes-offered">
-            <h2>Programmes Offered</h2>
-            <div class="program-box">
-                <strong>Introduction to Machine Learning and Data Science</strong>
-                <p>Learn the basics of ML and data analysis.</p>
-            </div>
-            <div class="program-box">
-                <strong>Crash Course on ChatGPT Prompts</strong>
-                <p>Master prompt engineering for AI tools.</p>
-            </div>
-            <div class="program-box">
-                <strong>Fundamentals of Programming</strong>
-                <p>Build a strong foundation in coding.</p>
-            </div>
-            <div class="program-box">
-                <strong>Application Development</strong>
-                <p>Design and develop modern applications.</p>
-            </div>
-            <div class="program-box">
-                <strong>IITJEE Foundation</strong>
-                <p>Prepare for IITJEE with expert guidance.</p>
-            </div>
-        </section>
-        <section id="community">
-            <h2>Join Our Community</h2>
-            <p>Be part of a global hub for collaborative coding adventures! Work on open-source projects, innovate through our browser-based coding tools, and connect with learners worldwide. Let’s code, innovate, and make a difference together! 💻✨</p>
-            <p>Follow us on <a href="https://www.linkedin.com/company/skill-station-academy" target="_blank">LinkedIn</a>.</p>
-        </section>
-        <section id="contact-us">
-            <h2>Contact Us</h2>
-            <p>Email: <a href="mailto:skillstation.academy@gmail.com">skillstation.academy@gmail.com</a></p>
-            <p>Phone: 7305959397</p>
-            <p><a href="https://wa.me/7305959397" target="_blank">Chat with us on WhatsApp</a></p>
-        </section>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-container">
+    <strong style="color:#fff;">Skill Station Academy</strong>
+    <div>
+      <a href="/about-us">About Us</a>
+      <a href="/tisat">TiSAT</a>
+      <a href="/courses">Courses</a>
+      <a href="/internships">Internships</a>
+      <a href="/workshops">Workshops</a>
+      <a href="/contact-us">Contact Us</a>
     </div>
-    <footer>
-        &copy; 2025 Skill Station Academy. All Rights Reserved.
-    </footer>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <h1>Skill Station Academy</h1>
+  <h2>IIT Madras Alumni–Led Academic & Skill Training Institute</h2>
+  <p>
+    Empowering students through strong conceptual foundations, exam-oriented preparation,
+    and industry-aligned training in Mathematics, Engineering & Competitive Exams.
+  </p>
+  <a class="hero-btn" href="https://wa.me/917305959397" target="_blank">Contact Us on WhatsApp</a>
+</header>
+
+<!-- UNDER DEVELOPMENT NOTE -->
+<div class="dev-note">
+  <strong>🚧 Website Under Development</strong>
+  <p>
+    We are currently enhancing our website experience.<br/>
+    Please check back after some time or reach out to us for course details.
+  </p>
+  <a class="hero-btn" href="https://wa.me/917305959397" target="_blank">Contact Us</a>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+  <section>
+    <h3>Welcome to Skill Station Academy</h3>
+    <p>
+      Skill Station Academy is a non-profit educational initiative founded by IIT Madras alumni,
+      dedicated to bridging the gap between school education, university curricula,
+      and national-level competitive examinations.
+    </p>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>Skill Station Academy</strong><br/>
+    WhatsApp: <a href="https://wa.me/917305959397">+91 73059 59397</a> |
+    Email: <a href="mailto:skillstation.academy@gmail.com">skillstation.academy@gmail.com</a>
+  </p>
+</footer>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <h3>Request Course Information</h3>
+    <p>
+      Get detailed course guidance and admission support directly via WhatsApp.
+    </p>
+    <a class="popup-btn popup-request" href="https://wa.me/917305959397" target="_blank">
+      Request via WhatsApp
+    </a>
+    <div class="popup-btn popup-skip" onclick="closePopup()">Skip</div>
+  </div>
+</div>
+
+<script>
+  setTimeout(function () {
+    document.getElementById('popup').style.display = 'flex';
+  }, 5000);
+
+  function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
