@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Weekly Class Schedule</title>
+<title>Weekly Planner | Skill Station Academy</title>
 
 <style>
 body{
-  font-family: Arial, Helvetica, sans-serif;
   margin:0;
+  font-family: Arial, Helvetica, sans-serif;
   background:#f2f6ff;
   color:#0b2c5f;
 }
@@ -23,63 +23,53 @@ body{
 h2{
   text-align:center;
   color:#0b3d91;
-  margin:15px 0;
+  margin:20px 0 15px;
 }
 
-/* Schedule */
-.schedule-wrap{
-  overflow-x:auto;
-  border-radius:12px;
-  box-shadow:0 4px 14px rgba(0,0,0,0.08);
-}
-
-table{
-  border-collapse:collapse;
+/* Embedded Planner */
+.planner-frame{
   width:100%;
-  min-width:850px;
+  height:75vh;
+  border:none;
+  border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
   background:white;
 }
 
-th, td{
-  padding:8px 6px;
-  text-align:center;
-  font-size:13px;
-}
-
-th{
-  background:#0b3d91;
-  color:white;
-}
-
-tr:nth-child(even) td{
-  background:#edf3ff;
-}
-
-.time{
-  font-weight:bold;
-  background:#dbe7ff !important;
-}
-
-/* Session blocks */
-.session{background:#bcd3ff;font-weight:bold;}
-.ma10{background:#4a90e2;color:white;font-weight:bold;}
-.ma11{background:#1c5ed6;color:white;font-weight:bold;}
-.ph12{background:#0b3d91;color:white;font-weight:bold;}
-.ma12{background:#062c63;color:white;font-weight:bold;}
-
-/* Course table */
+/* Course Description */
 .course-table{
-  margin-top:30px;
+  margin-top:35px;
+  width:100%;
+  border-collapse:collapse;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
-.course-table th{background:#062c63;}
-.course-table td{padding:12px;text-align:left;}
+.course-table th{
+  background:#062c63;
+  color:white;
+  padding:12px;
+}
+
+.course-table td{
+  padding:12px;
+  background:white;
+  border-bottom:1px solid #e3ecff;
+}
+
+.course-table tr:nth-child(even) td{
+  background:#edf3ff;
+}
+
+.code{
+  font-weight:bold;
+  color:#0b3d91;
+}
 
 @media(max-width:600px){
-  th,td{font-size:12px;padding:6px;}
+  .planner-frame{height:65vh;}
+  th,td{font-size:13px;}
 }
 </style>
 </head>
@@ -87,60 +77,10 @@ tr:nth-child(even) td{
 <body>
 <div class="container">
 
-<h2>Weekly Class Schedule</h2>
+<h2>Weekly Class Planner</h2>
 
-<div class="schedule-wrap">
-<table>
-<tr>
-  <th>Time</th>
-  <th>Mon</th>
-  <th>Tue</th>
-  <th>Wed</th>
-  <th>Thu</th>
-  <th>Fri</th>
-  <th>Sat</th>
-  <th>Sun</th>
-</tr>
-
-<tr><td class="time">9:00 am</td><td></td><td></td><td></td><td></td><td></td><td class="session" rowspan="4">S-01</td><td class="session" rowspan="4">S-02</td></tr>
-<tr><td class="time">9:30 am</td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td class="time">10:00 am</td><td class="ma10" rowspan="2">MA10</td><td class="ma10" rowspan="2">MA10</td><td></td><td></td><td></td></tr>
-<tr><td class="time">10:30 am</td></tr>
-
-<tr><td class="time">11:00 am</td><td></td><td></td><td></td><td></td><td></td><td class="ma11" rowspan="2">MA11</td><td class="ma11" rowspan="2">MA11</td></tr>
-<tr><td class="time">11:30 am</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">12:00 pm</td><td></td><td></td><td></td><td></td><td></td><td class="session" rowspan="4">S-04</td><td></td></tr>
-<tr><td class="time">12:30 pm</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">1:00 pm</td><td></td><td></td><td></td><td></td><td></td><td class="ph12" rowspan="2">PH12</td><td class="ph12" rowspan="2">PH12</td></tr>
-<tr><td class="time">1:30 pm</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">2:00 pm</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td class="time">2:30 pm</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">3:00 pm</td><td></td><td></td><td></td><td></td><td></td><td class="session" rowspan="4">S-01</td><td></td></tr>
-<tr><td class="time">3:30 pm</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">4:00 pm</td><td></td><td></td><td></td><td></td><td></td><td class="ma12" rowspan="3">MA12</td><td class="ma12" rowspan="3">MA12</td></tr>
-<tr><td class="time">4:30 pm</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">5:00 pm</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-<tr><td class="time">5:30 pm</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">6:00 pm</td><td></td><td></td><td></td><td></td><td></td><td class="session" rowspan="4">S-EV</td><td></td></tr>
-<tr><td class="time">6:30 pm</td><td></td><td></td><td></td><td></td><td></td></tr>
-
-<tr><td class="time">7:00 pm</td><td></td><td class="ma12" rowspan="3">MA12</td><td class="ma12" rowspan="3">MA12</td><td class="ma12" rowspan="3">MA12</td><td class="ma12" rowspan="3">MA12</td></tr>
-<tr><td class="time">7:30 pm</td><td></td></tr>
-
-<tr><td class="time">8:00 pm</td><td></td><td></td></tr>
-<tr><td class="time">8:30 pm</td><td></td><td></td></tr>
-
-<tr><td class="time">9:00 pm</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-
-</table>
-</div>
+<!-- Embedded Schedule File -->
+<iframe src="/res/sch.index" class="planner-frame"></iframe>
 
 <h2>Course Description</h2>
 
@@ -150,26 +90,31 @@ tr:nth-child(even) td{
   <th>Mode</th>
   <th>Description</th>
 </tr>
+
 <tr>
-  <td><b>MA10</b></td>
+  <td class="code">MA10</td>
   <td>Offline Classroom</td>
   <td>Crash Course on Mathematics for Class 9 → 10 JEE Aspirants</td>
 </tr>
+
 <tr>
-  <td><b>MA11</b></td>
+  <td class="code">MA11</td>
   <td>Offline Classroom</td>
   <td>Crash Course on Mathematics for Class 10 → 11 JEE Aspirants</td>
 </tr>
+
 <tr>
-  <td><b>PH12</b></td>
+  <td class="code">PH12</td>
   <td>Offline Classroom</td>
   <td>Crash Course on Physics for Class 11 → 12 JEE Aspirants</td>
 </tr>
+
 <tr>
-  <td><b>MA12</b></td>
+  <td class="code">MA12</td>
   <td>Online Only</td>
   <td>Crash Course on Mathematics for Class 11 → 12 JEE Aspirants</td>
 </tr>
+
 </table>
 
 </div>
