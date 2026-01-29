@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Class Schedule</title>
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:#f4f8ff;
+  color:#0b2c5f;
+}
+
+.container{
+  width:95%;
+  max-width:1100px;
+  margin:auto;
+  padding:15px 10px 40px;
+}
+
+h2{
+  text-align:center;
+  margin:10px 0 15px;
+  color:#0b3d91;
+}
+
+/* ===== Schedule Table ===== */
+
+.schedule-wrapper{
+  overflow-x:auto;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
+}
+
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:700px;
+  background:white;
+}
+
+th, td{
+  padding:10px 8px;
+  text-align:center;
+  font-size:14px;
+}
+
+th{
+  background:#0b3d91;
+  color:white;
+  font-weight:600;
+}
+
+tr:nth-child(even) td{
+  background:#eef4ff;
+}
+
+.time{
+  font-weight:bold;
+  background:#dbe8ff !important;
+  color:#0b2c5f;
+}
+
+/* Course Colors */
+.ma10{background:#4a90e2;color:white;font-weight:600;}
+.ma11{background:#1c5ed6;color:white;font-weight:600;}
+.ph12{background:#0b3d91;color:white;font-weight:600;}
+.ma12{background:#06306b;color:white;font-weight:600;}
+
+/* ===== Course Description ===== */
+
+.course-table{
+  margin-top:30px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
+}
+
+.course-table th{
+  background:#06306b;
+}
+
+.course-table td{
+  text-align:left;
+  padding:12px;
+}
+
+@media (max-width:600px){
+  th, td{font-size:12px;padding:8px;}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>Weekly Class Schedule</h2>
+
+<div class="schedule-wrapper">
+<table>
+<tr>
+  <th>Time</th>
+  <th>Mon</th>
+  <th>Tue</th>
+  <th>Wed</th>
+  <th>Thu</th>
+  <th>Fri</th>
+  <th>Sat</th>
+  <th>Sun</th>
+</tr>
+
+<tr>
+  <td class="time">10:00 – 11:00 AM</td>
+  <td class="ma10">MA10</td>
+  <td class="ma10">MA10</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+
+<tr>
+  <td class="time">2:00 – 3:00 PM</td>
+  <td></td><td></td><td></td><td></td><td></td>
+  <td class="ma11">MA11</td>
+  <td class="ma11">MA11</td>
+</tr>
+
+<tr>
+  <td class="time">6:00 – 7:00 PM</td>
+  <td></td><td></td><td></td><td></td><td></td>
+  <td class="ph12">PH12</td>
+  <td class="ph12">PH12</td>
+</tr>
+
+<tr>
+  <td class="time">7:00 – 8:30 PM</td>
+  <td></td>
+  <td class="ma12">MA12</td>
+  <td class="ma12">MA12</td>
+  <td class="ma12">MA12</td>
+  <td class="ma12">MA12</td>
+  <td class="ma12">MA12</td>
+  <td></td>
+</tr>
+
+</table>
+</div>
+
+<h2>Course Description</h2>
+
+<table class="course-table">
+<tr>
+  <th>Course Code</th>
+  <th>Mode</th>
+  <th>Description</th>
+</tr>
+
+<tr>
+  <td><b>MA10</b></td>
+  <td>Offline Classroom</td>
+  <td>Crash Course on Mathematics for Class 9 → 10 JEE Aspirants</td>
+</tr>
+
+<tr>
+  <td><b>MA11</b></td>
+  <td>Offline Classroom</td>
+  <td>Crash Course on Mathematics for Class 10 → 11 JEE Aspirants</td>
+</tr>
+
+<tr>
+  <td><b>PH12</b></td>
+  <td>Offline Classroom</td>
+  <td>Crash Course on Mathematics for Class 11 → 12 JEE Aspirants</td>
+</tr>
+
+<tr>
+  <td><b>MA12</b></td>
+  <td>Online Only</td>
+  <td>Crash Course on Mathematics for Class 11 → 12 JEE Aspirants</td>
+</tr>
+
+</table>
+
+</div>
+</body>
+</html>
