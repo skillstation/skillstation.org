@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Bank | Study</title>
+
+<!-- KaTeX -->
+<link rel="stylesheet"
+ href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+ onload="renderMathInPage()"></script>
+
+<style>
+:root {
+  --bg: #fafafa;
+  --card: #ffffff;
+  --border: #e5e5e9;
+  --text: #202127;
+  --muted: #85858f;
+  --purple: #8055ed;
+  --green: #079669;
+  --orange: #e87525;
+  --red: #e34d4d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 15px;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 30px 24px 80px;
+}
+
+/* Filters */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: 24px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-right: 3px;
+}
+
+button, select {
+  font: inherit;
+}
+
+.chip {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 15px;
+  cursor: pointer;
+  color: #777782;
+  transition: .15s;
+}
+
+.chip:hover {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+.chip.active {
+  background: #f2edff;
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+.easy.active { color: var(--green); border-color: var(--green); background:#edfaf5; }
+.medium.active { color: var(--orange); border-color: var(--orange); background:#fff5eb; }
+.hard.active { color: var(--red); border-color: var(--red); background:#fff0f0; }
+
+select {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 12px;
+  color: #777782;
+  outline: none;
+}
+
+/* Progress */
+
+.progress-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 15px 19px;
+  margin-bottom: 25px;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.progress-top strong {
+  color: var(--text);
+}
+
+.progress-track {
+  height: 5px;
+  background: #eeeeef;
+  border-radius: 10px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--purple);
+  transition: width .3s;
+}
+
+/* Question */
+
+.question-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 28px 10px 14px;
+  gap: 10px;
+}
+
+.question-heading h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.question-meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.question-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.question-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 14px 17px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tag {
+  border: 1px solid #d9d9de;
+  background: #f7f7f8;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag.section {
+  background: #fff9e9;
+  border-color: #ffe1a3;
+  color: #d69a00;
+}
+
+.tag.easy { color: var(--green); }
+.tag.medium { color: var(--orange); }
+.tag.hard { color: var(--red); }
+
+.toolbar-spacer { flex: 1; }
+
+.icon-btn {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 8px;
+  padding: 8px 11px;
+  cursor: pointer;
+  color: #777782;
+}
+
+.icon-btn:hover {
+  color: var(--purple);
+  border-color: var(--purple);
+}
+
+.question-body {
+  padding: 20px;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.marks {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+.question-text {
+  margin-bottom: 18px;
+}
+
+.equation {
+  text-align: center;
+  margin: 24px 0;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.option {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px;
+  cursor: pointer;
+  background: white;
+}
+
+.option:hover { border-color: var(--purple); }
+
+.option.selected {
+  background: #f2edff;
+  border-color: var(--purple);
+}
+
+.option.correct {
+  background: #edfaf5;
+  border-color: var(--green);
+}
+
+.answer {
+  display: none;
+  margin-top: 20px;
+  padding: 15px;
+  background: #f7f7fb;
+  border-radius: 9px;
+  border-left: 3px solid var(--purple);
+}
+
+.answer.show { display: block; }
+
+.answer-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 9px 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  color: #666;
+}
+
+.action-btn.primary {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+}
+
+.action-btn.completed {
+  background: #edfaf5;
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 50px;
+}
+
+@media(max-width:700px) {
+  .container { padding: 20px 12px 50px; }
+  .filters { gap: 15px; }
+  .filter-group { width: 100%; }
+  .question-heading { margin-left: 2px; }
+  .question-heading h2 { font-size: 19px; }
+  .question-meta { font-size: 12px; }
+  .question-toolbar { gap: 7px; }
+  .question-body { padding: 16px; }
+  .options { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- FILTERS -->
+
+  <div class="filters">
+
+    <div class="filter-group">
+      <span class="filter-label">PAPER</span>
+      <button class="chip active" data-filter="paper" data-value="1">1</button>
+      <button class="chip" data-filter="paper" data-value="2">2</button>
+      <button class="chip" data-filter="paper" data-value="3">3</button>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">SECTION</span>
+      <button class="chip active" data-filter="section" data-value="A">Section A</button>
+      <button class="chip" data-filter="section" data-value="B">Section B</button>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">DIFFICULTY</span>
+      <button class="chip easy active" data-filter="difficulty" data-value="Easy">Easy</button>
+      <button class="chip medium" data-filter="difficulty" data-value="Medium">Medium</button>
+      <button class="chip hard" data-filter="difficulty" data-value="Hard">Hard</button>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">FORMAT</span>
+      <button class="chip active" data-filter="format" data-value="Structured">Structured</button>
+      <button class="chip" data-filter="format" data-value="Extended">Extended response</button>
+    </div>
+
+  </div>
+
+  <!-- PROGRESS -->
+
+  <div class="progress-card">
+    <div class="progress-top">
+      <span><strong id="completed">0</strong> / <span id="total">0</span> completed</span>
+      <span id="percentage">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+
+  <div id="questions">
+
+    <!-- QUESTION 1 -->
+
+    <section class="question-item"
+      data-paper="1"
+      data-section="A"
+      data-difficulty="Easy"
+      data-format="Structured">
+
+      <div class="question-heading">
+        <h2>Question 1</h2>
+        <span class="question-meta">JEE Main · Calculus</span>
+      </div>
+
+      <div class="question-card">
+
+        <div class="question-toolbar">
+          <span class="tag">Structured</span>
+          <span class="tag section">Section A</span>
+          <span class="tag">Limits</span>
+          <span class="tag easy">Easy ●</span>
+          <span class="toolbar-spacer"></span>
+          <button class="icon-btn" onclick="this.textContent=this.textContent==='⚑'?'⚐':'⚑'" title="Flag">⚐</button>
+          <button class="icon-btn" onclick="toggleAnswer(1)" title="Show answer">💡</button>
+          <button class="icon-btn" onclick="toggleAnswer(1)" title="Toggle solution">▤</button>
+        </div>
+
+        <div class="question-body">
+
+          <div class="marks">[Maximum mark: 4]</div>
+
+          <div class="question-text">
+            Determine the value of the following limit:
+          </div>
+
+          <div class="equation">
+            $$\lim_{x\to 0}\frac{x\sin x}{1-\cos x}$$
+          </div>
+
+          <div class="options">
+            <div class="option" onclick="selectOption(this)">A. 0</div>
+            <div class="option" onclick="selectOption(this)">B. 1</div>
+            <div class="option" onclick="selectOption(this)">C. 2</div>
+            <div class="option" onclick="selectOption(this)">D. 4</div>
+          </div>
+
+          <div class="answer" id="answer1">
+            <div class="answer-title">Solution</div>
+            Using standard limits:
+
+            <div class="equation">
+              $$\sin x \sim x,\quad 1-\cos x\sim\frac{x^2}{2}$$
+            </div>
+
+            Therefore,
+
+            <div class="equation">
+              $$\lim_{x\to0}\frac{x^2}{x^2/2}=2$$
+            </div>
+
+            <strong>Correct answer: C. 2</strong>
+          </div>
+
+          <div class="actions">
+            <button class="action-btn primary" onclick="toggleAnswer(1)">
+              Show solution
+            </button>
+            <button class="action-btn" onclick="markComplete(this)">
+              Mark completed ✓
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- QUESTION 2 -->
+
+    <section class="question-item"
+      data-paper="1"
+      data-section="B"
+      data-difficulty="Medium"
+      data-format="Structured">
+
+      <div class="question-heading">
+        <h2>Question 2</h2>
+        <span class="question-meta">JEE Advanced · Integration</span>
+      </div>
+
+      <div class="question-card">
+
+        <div class="question-toolbar">
+          <span class="tag">Structured</span>
+          <span class="tag section">Section B</span>
+          <span class="tag">Integration by parts</span>
+          <span class="tag medium">Medium ●●</span>
+          <span class="toolbar-spacer"></span>
+          <button class="icon-btn" onclick="this.textContent=this.textContent==='⚑'?'⚐':'⚑'">⚐</button>
+          <button class="icon-btn" onclick="toggleAnswer(2)">💡</button>
+          <button class="icon-btn" onclick="toggleAnswer(2)">▤</button>
+        </div>
+
+        <div class="question-body">
+
+          <div class="marks">[Maximum mark: 6]</div>
+
+          <div class="question-text">
+            Consider the function:
+          </div>
+
+          <div class="equation">
+            $$f(x)=x^2e^x$$
+          </div>
+
+          Find the derivative of the function using the product rule.
+
+          <div class="answer" id="answer2">
+            <div class="answer-title">Solution</div>
+
+            Using the product rule:
+
+            <div class="equation">
+              $$\frac{d}{dx}(uv)=u'v+uv'$$
+            </div>
+
+            Taking:
+
+            $$u=x^2,\quad v=e^x$$
+
+            Therefore:
+
+            $$f'(x)=2xe^x+x^2e^x$$
+
+            $$\boxed{f'(x)=e^x(x^2+2x)}$$
+          </div>
+
+          <div class="actions">
+            <button class="action-btn primary" onclick="toggleAnswer(2)">
+              Show solution
+            </button>
+            <button class="action-btn" onclick="markComplete(this)">
+              Mark completed ✓
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="empty" id="empty">
+    No questions found for these filters.
+  </div>
+
+</div>
+
+<script>
+
+// FILTER STATE
+
+const filters = {
+  paper: "1",
+  section: "A",
+  difficulty: "Easy",
+  format: "Structured"
+};
+
+// FILTER BUTTONS
+
+document.querySelectorAll("[data-filter]").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    const type = button.dataset.filter;
+
+    filters[type] = button.dataset.value;
+
+    // Single selection per filter group
+    document.querySelectorAll(`[data-filter="${type}"]`)
+      .forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+
+    applyFilters();
+  });
+
+});
+
+// APPLY FILTERS
+
+function applyFilters() {
+
+  const questions = document.querySelectorAll(".question-item");
+
+  let visible = 0;
+
+  questions.forEach(question => {
+
+    const matches =
+      question.dataset.paper === filters.paper &&
+      question.dataset.section === filters.section &&
+      question.dataset.difficulty === filters.difficulty &&
+      question.dataset.format === filters.format;
+
+    question.style.display = matches ? "block" : "none";
+
+    if (matches) visible++;
+
+  });
+
+  document.getElementById("empty").style.display =
+    visible === 0 ? "block" : "none";
+
+}
+
+// SHOW / HIDE ANSWER
+
+function toggleAnswer(id) {
+
+  const answer = document.getElementById("answer" + id);
+
+  answer.classList.toggle("show");
+
+  if (window.renderMathInElement) {
+    renderMathInPage();
+  }
+
+}
+
+// SELECT OPTION
+
+function selectOption(element) {
+
+  const parent = element.parentElement;
+
+  parent.querySelectorAll(".option").forEach(option => {
+    option.classList.remove("selected");
+  });
+
+  element.classList.add("selected");
+
+}
+
+// MARK COMPLETED
+
+function markComplete(button) {
+
+  button.classList.toggle("completed");
+
+  const isCompleted = button.classList.contains("completed");
+
+  button.textContent = isCompleted
+    ? "Completed ✓"
+    : "Mark completed ✓";
+
+  updateProgress();
+
+}
+
+// PROGRESS TRACKER
+
+function updateProgress() {
+
+  const questions = document.querySelectorAll(".question-item");
+
+  const total = questions.length;
+
+  const completed = document.querySelectorAll(
+    ".actions .action-btn.completed"
+  ).length;
+
+  const percentage = total
+    ? Math.round((completed / total) * 100)
+    : 0;
+
+  document.getElementById("completed").textContent = completed;
+  document.getElementById("total").textContent = total;
+  document.getElementById("percentage").textContent = percentage + "%";
+  document.getElementById("progress").style.width = percentage + "%";
+
+}
+
+// KATEX RENDERING
+
+function renderMathInPage() {
+
+  if (!window.renderMathInElement) return;
+
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: true}
+    ],
+    throwOnError: false
+  });
+
+}
+
+// INITIALIZE
+
+updateProgress();
+
+</script>
+
+</body>
+</html>
