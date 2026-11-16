@@ -1,0 +1,44 @@
+{
+  "title": "Student Course Enquiry Form",
+  "subtitle": "Fill in your details below to explore batches, syllabus, and fee structures. Our academic counsellors will connect with you shortly.",
+  "educationLevels": [
+    "School",
+    "College",
+    "Working Professional"
+  ],
+  "school-courses": [
+    "IITJEE Foundations (class 8 and 9)",
+    "IITJEE Mains & Advanced (class 10, 11, 12)",
+    "NEET Foundations",
+    "NEET-UG",
+    "BITSAT",
+    "Others - VITEEE, SRMEEE, etc."
+  ],
+  "college-professional-courses": {
+    "Professional Training Programs": [
+      "Programming Fundamentals",
+      "Data Structures and Algorithm",
+      "Mathematical Aptitude for AI",
+      "Web Application Development 01 (HTML/CSS/JS)",
+      "Web Application Development (React)",
+      "Mobile Application Development (Flutter)",
+      "Mobile Application Development (React Native)",
+      "Machine Learning Foundations",
+      "Deep Learning Foundations",
+      "Scientific Computing in MATLAB",
+      "Introduction to AWS",
+      "Certified Solutions Architect - SAA C03",
+      "Introduction to the Design of Electric Vehicles"
+    ],
+    "Competitive Exam Training": [
+      "GATE Mechanical",
+      "GATE Mathematics",
+      "GATE Aptitude",
+      "CAT",
+      "GMAT",
+      "TNPSC",
+      "UPSC",
+      "TNEB-AE"
+    ]
+  }
+}
