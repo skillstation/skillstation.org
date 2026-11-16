@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Station Academy | Student Course Enquiry</title>
+    <link rel="icon" type="image/png" href="https://skillstation.org/assets/ss-logo-50p-white.png">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
+
+    <!-- Top Navigation / Header -->
+    <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 text-white shadow-md">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between gap-4">
+            <!-- Academy Brand Logo & Name -->
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-inner p-1.5">
+                    <img src="https://skillstation.org/assets/ss-logo-50p-white.png" alt="Skill Station Academy Logo" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <span class="text-lg sm:text-xl font-bold tracking-tight block leading-none">Skill Station Academy</span>
+                    <span class="text-xs text-brand-200 font-medium">Committed to Excellence</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Sub-strip -->
+    <div class="bg-brand-800 text-brand-100 border-t border-brand-700/60">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 text-center">
+            <span class="inline-block px-3 py-1 rounded-full bg-brand-700/80 border border-brand-500/40 text-xs font-semibold uppercase tracking-wider text-brand-200 mb-3">
+                Admissions &amp; Course Counselling
+            </span>
+            <h1 id="formTitle" class="text-2xl sm:text-4xl font-bold text-white tracking-tight">
+                Student Course Enquiry Form
+            </h1>
+            <p id="formSubtitle" class="mt-2.5 text-sm sm:text-base text-brand-200 max-w-2xl mx-auto leading-relaxed">
+                Fill in your details below to explore batches, syllabus, and fee structures. Our academic counsellors will connect with you shortly.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Form Container -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 -mt-6 mb-12">
+        <div class="bg-white rounded-2xl shadow-xl shadow-brand-950/5 border border-slate-200/80 overflow-hidden">
+
+            <!-- Status Alert Box -->
+            <div id="statusAlert" class="hidden mx-6 sm:mx-8 mt-6 p-4 rounded-xl border text-sm transition-all" role="alert">
+                <div class="flex items-start gap-3">
+                    <div id="statusIcon" class="shrink-0 mt-0.5"></div>
+                    <div class="flex-1">
+                        <h3 id="statusTitle" class="font-semibold"></h3>
+                        <p id="statusMessage" class="mt-1 text-xs sm:text-sm opacity-90"></p>
+                    </div>
+                    <button type="button" onclick="hideStatusAlert()" class="text-current opacity-60 hover:opacity-100 p-1 rounded-lg cursor-pointer" aria-label="Close message">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Enquiry Form -->
+            <form id="enquiryForm" class="p-6 sm:p-8 space-y-6" novalidate>
+                
+                <!-- Row 1: Full Name & School/College/Working Professional -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- Student Full Name -->
+                    <div>
+                        <label for="fullName" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            Student Full Name <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            required
+                            placeholder="e.g., Aarav Sharma"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-fullName">Please enter the student's full name.</p>
+                    </div>
+
+                    <!-- School / College / Working Professional -->
+                    <div>
+                        <label for="educationLevel" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            School / College <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            id="educationLevel"
+                            name="educationLevel"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                            <option value="" disabled selected>Select current level...</option>
+                        </select>
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-educationLevel">Please select your current level.</p>
+                    </div>
+                </div>
+
+                <!-- Dynamic Row: Program Category (Shown for College and Working Professional) -->
+                <div id="collegeCategoryWrapper" class="hidden">
+                    <label for="collegeCategory" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Program Category <span class="text-red-500">*</span>
+                    </label>
+                    <select
+                        id="collegeCategory"
+                        name="collegeCategory"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                    >
+                        <option value="" disabled selected>Select Professional Training or Competitive Exam</option>
+                    </select>
+                    <p class="mt-1 text-xs text-red-600 hidden" id="err-collegeCategory">Please select a program category.</p>
+                </div>
+
+                <!-- Row: Programme Selection (Populated dynamically) -->
+                <div>
+                    <label for="course" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Course Interested In <span class="text-red-500">*</span>
+                    </label>
+                    <select
+                        id="course"
+                        name="course"
+                        required
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                    >
+                        <option value="" disabled selected>Choose a programme...</option>
+                    </select>
+                    <p class="mt-1 text-xs text-red-600 hidden" id="err-course">Please choose a programme.</p>
+                </div>
+
+                <!-- Row: Email & Phone Number -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- Parent / Student Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            Parent / Student Email <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="name@example.com"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-email">Please enter a valid email address.</p>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            Phone / WhatsApp Number <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            placeholder="e.g., +91 98765 43210"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-phone">Please enter a valid phone number.</p>
+                    </div>
+                </div>
+
+                <!-- Row: Planning to Join & Preferred Communication Mode -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <!-- When are you planning to join? -->
+                    <div>
+                        <label for="joinTimeline" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            When are you planning to join? <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            id="joinTimeline"
+                            name="joinTimeline"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                            <option value="" disabled selected>Select timeline...</option>
+                            <option value="Immediately">Immediately</option>
+                            <option value="Within a month">Within a month</option>
+                            <option value="Not sure">Not sure</option>
+                            <option value="Just enquiring">Just enquiring</option>
+                        </select>
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-joinTimeline">Please select when you plan to join.</p>
+                    </div>
+
+                    <!-- Preferred Communication Mode -->
+                    <div>
+                        <label for="commMode" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                            Preferred Communication Mode <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                            id="commMode"
+                            name="commMode"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition"
+                        >
+                            <option value="" disabled selected>Select preferred mode...</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Call">Call</option>
+                            <option value="Email">Email</option>
+                        </select>
+                        <p class="mt-1 text-xs text-red-600 hidden" id="err-commMode">Please select a preferred communication mode.</p>
+                    </div>
+                </div>
+
+                <!-- Optional Message / Notes -->
+                <div>
+                    <label for="notes" class="block text-sm font-semibold text-slate-700 mb-1.5">
+                        Message / Preferred Batch Timing <span class="text-slate-400 font-normal">(Optional)</span>
+                    </label>
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        rows="3"
+                        placeholder="Mention preferred batch (Weekday / Weekend), mode (Online / Offline), or any specific questions..."
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-slate-50/50 text-slate-900 placeholder-slate-400 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition resize-y"
+                    ></textarea>
+                </div>
+
+                <!-- Terms and Conditions Checkbox -->
+                <div>
+                    <div class="flex items-start gap-2.5">
+                        <input
+                            type="checkbox"
+                            id="termsConsent"
+                            name="termsConsent"
+                            required
+                            class="mt-1 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                        >
+                        <label for="termsConsent" class="text-xs sm:text-sm text-slate-600 leading-snug cursor-pointer">
+                            I have read and agree to the <a href="https://skillstation.org/docs/data-consent.html" target="_blank" rel="noopener noreferrer" class="text-brand-600 hover:text-brand-800 font-semibold underline underline-offset-2">Terms and Conditions</a>. <span class="text-red-500">*</span>
+                        </label>
+                    </div>
+                    <p class="mt-1 text-xs text-red-600 hidden" id="err-termsConsent">You must read and agree to the Terms and Conditions to submit.</p>
+                </div>
+
+                <!-- Single Submit Button -->
+                <div class="pt-2">
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="w-full py-3.5 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-sm sm:text-base shadow-lg shadow-brand-600/25 hover:shadow-brand-700/30 focus:outline-none focus:ring-4 focus:ring-brand-500/30 transition flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        <span id="btnText">Submit Course Enquiry</span>
+                        <svg id="btnArrow" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                        <!-- Loading Spinner -->
+                        <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Privacy / Reassurance Footer Note -->
+                <p class="text-center text-xs text-slate-400">
+                    Your details are securely recorded for admission counselling at Skill Station Academy. We never share your information with third parties.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-center text-xs text-slate-500">
+            <p>&copy; <span id="currentYear"></span> Skill Station Academy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // =========================================================================
+        // CONFIGURATION & MERGED FORM DATA
+        // =========================================================================
+        const SCRIPT_URL = 'https://script.google.com/a/macros/skillstation.org/s/AKfycbxwYB4mwl22wQXmtNud-YCJngBIrOk9m1tmzUfqNtgTY_O-Jh2geoxWNtlltami5hmWxQ/exec';
+
+        const FORM_CONFIG = {
+            "title": "Student Course Enquiry Form",
+            "subtitle": "Fill in your details below to explore batches, syllabus, and fee structures. Our academic counsellors will connect with you shortly.",
+            "educationLevels": [
+                "School",
+                "College",
+                "Working Professional"
+            ],
+            "school-courses": [
+                "IITJEE Foundations (class 8 and 9)",
+                "IITJEE Mains & Advanced (class 10, 11, 12)",
+                "NEET Foundations",
+                "NEET-UG",
+                "BITSAT",
+                "Others - VITEEE, SRMEEE, etc."
+            ],
+            "college-professional-courses": {
+                "Professional Training Programs": [
+                    "Programming Fundamentals",
+                    "Data Structures and Algorithm",
+                    "Mathematical Aptitude for AI",
+                    "Web Application Development 01 (HTML/CSS/JS)",
+                    "Web Application Development (React)",
+                    "Mobile Application Development (Flutter)",
+                    "Mobile Application Development (React Native)",
+                    "Machine Learning Foundations",
+                    "Deep Learning Foundations",
+                    "Scientific Computing in MATLAB",
+                    "Introduction to AWS",
+                    "Certified Solutions Architect - SAA C03",
+                    "Introduction to the Design of Electric Vehicles"
+                ],
+                "Competitive Exam Training": [
+                    "GATE Mechanical",
+                    "GATE Mathematics",
+                    "GATE Aptitude",
+                    "CAT",
+                    "GMAT",
+                    "TNPSC",
+                    "UPSC",
+                    "TNEB-AE"
+                ]
+            }
+        };
+
+        // Set footer year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const form = document.getElementById('enquiryForm');
+        const educationLevelSelect = document.getElementById('educationLevel');
+        const collegeCategoryWrapper = document.getElementById('collegeCategoryWrapper');
+        const collegeCategorySelect = document.getElementById('collegeCategory');
+        const courseSelect = document.getElementById('course');
+
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnArrow = document.getElementById('btnArrow');
+        const btnSpinner = document.getElementById('btnSpinner');
+
+        /**
+         * Initializes UI text and dropdowns from FORM_CONFIG
+         */
+        function initFormConfig(data) {
+            if (data.title) {
+                document.getElementById('formTitle').textContent = data.title;
+            }
+            if (data.subtitle) {
+                document.getElementById('formSubtitle').textContent = data.subtitle;
+            }
+
+            // Populate School / College / Working Professional dropdown
+            const levels = data.educationLevels || ["School", "College", "Working Professional"];
+            educationLevelSelect.innerHTML = '<option value="" disabled selected>Select current level...</option>';
+            levels.forEach(level => {
+                const option = document.createElement('option');
+                option.value = level;
+                option.textContent = level;
+                educationLevelSelect.appendChild(option);
+            });
+
+            // Populate Program Categories for College & Working Professional
+            const categories = Object.keys(data['college-professional-courses'] || {});
+            collegeCategorySelect.innerHTML = '<option value="" disabled selected>Select Professional Training or Competitive Exam</option>';
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                collegeCategorySelect.appendChild(option);
+            });
+        }
+
+        // Initialize form immediately on load
+        initFormConfig(FORM_CONFIG);
+
+        /**
+         * Populates the Course dropdown based on selected list
+         */
+        function populateCourses(courseList) {
+            courseSelect.innerHTML = '<option value="" disabled selected>Choose a programme...</option>';
+            courseList.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.textContent = course;
+                courseSelect.appendChild(option);
+            });
+        }
+
+        /**
+         * Helper to check if selected level uses college-professional courses
+         */
+        function isCollegeOrProfessional(level) {
+            return level === 'College' || level === 'Working Professional';
+        }
+
+        // Handle School vs College / Working Professional selection
+        educationLevelSelect.addEventListener('change', function () {
+            const level = this.value;
+            collegeCategorySelect.value = '';
+            populateCourses([]);
+
+            if (level === 'School') {
+                collegeCategoryWrapper.classList.add('hidden');
+                collegeCategorySelect.removeAttribute('required');
+                populateCourses(FORM_CONFIG['school-courses'] || []);
+            } else if (isCollegeOrProfessional(level)) {
+                collegeCategoryWrapper.classList.remove('hidden');
+                collegeCategorySelect.setAttribute('required', 'required');
+            }
+        });
+
+        // Handle Program Category selection (Professional vs Competitive Exam)
+        collegeCategorySelect.addEventListener('change', function () {
+            const category = this.value;
+            const categoryMap = FORM_CONFIG['college-professional-courses'] || {};
+            if (categoryMap[category]) {
+                populateCourses(categoryMap[category]);
+            } else {
+                populateCourses([]);
+            }
+        });
+
+        /**
+         * Validates required fields and highlights errors cleanly without alert()
+         */
+        function validateForm() {
+            let isValid = true;
+
+            const fields = [
+                { id: 'fullName', check: (val) => val.trim().length >= 2 },
+                { id: 'educationLevel', check: (val) => val.trim() !== '' },
+                {
+                    id: 'collegeCategory',
+                    check: (val) => !isCollegeOrProfessional(educationLevelSelect.value) || val.trim() !== ''
+                },
+                { id: 'course', check: (val) => val.trim() !== '' },
+                { id: 'email', check: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()) },
+                { id: 'phone', check: (val) => val.replace(/\D/g, '').length >= 7 },
+                { id: 'joinTimeline', check: (val) => val.trim() !== '' },
+                { id: 'commMode', check: (val) => val.trim() !== '' }
+            ];
+
+            fields.forEach(({ id, check }) => {
+                const input = document.getElementById(id);
+                const errEl = document.getElementById(`err-${id}`);
+                if (!check(input.value)) {
+                    isValid = false;
+                    input.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+                    input.classList.remove('border-slate-300');
+                    errEl.classList.remove('hidden');
+                } else {
+                    input.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+                    input.classList.add('border-slate-300');
+                    errEl.classList.add('hidden');
+                }
+            });
+
+            // Validate Terms & Conditions checkbox
+            const termsCheckbox = document.getElementById('termsConsent');
+            const termsErr = document.getElementById('err-termsConsent');
+            if (!termsCheckbox.checked) {
+                isValid = false;
+                termsErr.classList.remove('hidden');
+            } else {
+                termsErr.classList.add('hidden');
+            }
+
+            return isValid;
+        }
+
+        /**
+         * Toggles button loading state during network submission
+         */
+        function setLoading(isLoading) {
+            submitBtn.disabled = isLoading;
+            if (isLoading) {
+                btnText.textContent = 'Submitting Enquiry...';
+                btnArrow.classList.add('hidden');
+                btnSpinner.classList.remove('hidden');
+            } else {
+                btnText.textContent = 'Submit Course Enquiry';
+                btnArrow.classList.remove('hidden');
+                btnSpinner.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Displays an accessible status banner inside the card
+         */
+        function showStatusAlert(type, title, message) {
+            const box = document.getElementById('statusAlert');
+            const icon = document.getElementById('statusIcon');
+            const titleEl = document.getElementById('statusTitle');
+            const msgEl = document.getElementById('statusMessage');
+
+            box.className = 'mx-6 sm:mx-8 mt-6 p-4 rounded-xl border text-sm transition-all';
+
+            if (type === 'success') {
+                box.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+                icon.innerHTML = `<svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            } else {
+                box.classList.add('bg-red-50', 'border-red-200', 'text-red-900');
+                icon.innerHTML = `<svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`;
+            }
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            box.classList.remove('hidden');
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function hideStatusAlert() {
+            document.getElementById('statusAlert').classList.add('hidden');
+        }
+
+        /**
+         * Handles form submission to Google Apps Script
+         */
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            hideStatusAlert();
+
+            if (!validateForm()) {
+                return;
+            }
+
+            const payload = {
+                fullName: document.getElementById('fullName').value.trim(),
+                educationLevel: educationLevelSelect.value,
+                collegeCategory: isCollegeOrProfessional(educationLevelSelect.value) ? collegeCategorySelect.value : 'N/A',
+                course: courseSelect.value,
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                joinTimeline: document.getElementById('joinTimeline').value,
+                commMode: document.getElementById('commMode').value,
+                termsAccepted: document.getElementById('termsConsent').checked ? 'Yes' : 'No',
+                notes: document.getElementById('notes').value.trim() || 'N/A'
+            };
+
+            setLoading(true);
+
+            try {
+                if (!SCRIPT_URL || SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
+                    await new Promise(resolve => setTimeout(resolve, 900));
+                    showStatusAlert(
+                        'success',
+                        'Demo Enquiry Recorded!',
+                        `Thank you, ${payload.fullName}. Your enquiry for "${payload.course}" was simulated successfully.`
+                    );
+                    form.reset();
+                    collegeCategoryWrapper.classList.add('hidden');
+                    populateCourses([]);
+                    return;
+                }
+
+                // Live POST request to Google Apps Script Web App
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                showStatusAlert(
+                    'success',
+                    'Enquiry Submitted Successfully!',
+                    `Thank you, ${payload.fullName}! Your details for "${payload.course}" have been saved and our team will contact you via ${payload.commMode}.`
+                );
+                form.reset();
+                collegeCategoryWrapper.classList.add('hidden');
+                populateCourses([]);
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showStatusAlert(
+                    'error',
+                    'Submission Failed',
+                    'We could not connect to the server. Please check your internet connection and try again.'
+                );
+            } finally {
+                setLoading(false);
+            }
+        });
+    </script>
+</body>
+</html>
